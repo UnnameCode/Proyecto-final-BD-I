@@ -1,0 +1,46 @@
+mysql> CREATE DATABASE BD_SQLFINAL;
+
+Query OK, 1 row affected (0.00 sec)
+
+
+// falta colocar llaves foraneas, se crea tabla persona
+
+mysql> CREATE TABLE BD_SQLFINAL.persona ( numero_identificacion INT NOT NULL, tipo varchar(15) NOT NULL,
+    nombre_completo varchar(30) NOT NULL, numero_contrato INT NULL, registro_conduccion varchar(15) NULL,
+    direccion varchar(50) NOT NULL, telefono varchar(12) NOT NULL, telefono_secundario varchar(12) NULL,
+    PRIMARY KEY (numero_identificacion));
+
+Query OK, 0 rows affected (0.01 sec)
+
+// Se crea la bodega, falta llave foranea x2
+
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(9) NOT NULL, ubicacion varchar(50) NOT NULL, propietario varchar(30) NOT NULL, tipo CHAR NOT NULL, largo double NOT NULL, ancho double NOT NULL, tipo_ambiente CHAR NOT NULL, tipo_producto VARCHAR(15) NOT NULL, material_construccion varchar(15) NOT NULL, cantidad_puestos int NOT NULL, PRIMARY KEY (nit));
+Query OK, 0 rows affected (0.01 sec)
+
+// Se crea el puesto de almacenamiento (sin llave foranea x3)
+
+mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL, localizacion_cuadrante varchar(15) NOT NULL, consecutivo double NOT NULL, contiene int NULL, bodega_nit varchar(9) NOT NULL, PRIMARY KEY (codigo));
+
+Query OK, 0 rows affected (0.01 sec)
+
+// Se crea la entidad vehiculo (sin llave foranea x4)
+
+mysql> CREATE TABLE BD_SQLFINAL.vehiculo ( placa varchar(6) NOT NULL, tipo varchar(10) NOT NULL, color varchar(10) NOT NULL,
+    -> modelo YEAR(4) NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
+    -> identificacion_conductor int NOT NULL, PRIMARY KEY ( placa ));
+Query OK, 0 rows affected (0.08 sec)
+
+
+// Se crea la entidad producto (sin llave foranea x5)
+
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    -> estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+    -> PRIMARY KEY ( codigo) ) ;
+Query OK, 0 rows affected (0.01 sec)
+
+
+// Se crea la entidad referencia comercial(sin llaves foraneas x6)
+
+mysql> CREATE TABLE BD_SQLFINAL.referencia_comercial ( tipo_identificacion varchar(15) NOT NULL, identificacion int NOT NULL, nombre_completo varchar(30) NOT NULL,
+    -> razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, PRIMARY KEY ( identificacion ));
+Query OK, 0 rows affected (0.01 sec)
