@@ -42,7 +42,7 @@ Query OK, 0 rows affected (0.01 sec)
 // Se crea la entidad referencia comercial(sin llaves foraneas x6)
 
 mysql> CREATE TABLE BD_SQLFINAL.referencia_comercial ( tipo_identificacion varchar(15) NOT NULL, identificacion int NOT NULL, nombre_completo varchar(30) NOT NULL,
-    -> razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, PRIMARY KEY ( identificacion ));
+    razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, ref_numero_contrato int NOT NULL, PRIMARY KEY ( identificacion ));
 Query OK, 0 rows affected (0.01 sec)
 
 // Se crea la entidad contrato(sin llaves foraneas x6)
@@ -82,3 +82,100 @@ Query OK, 0 rows affected (0.02 sec)
 mysql> CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
     -> PRIMARY KEY (codigo));
 Query OK, 0 rows affected (0.01 sec)
+
+// Se crea entidad registro (sin llaves foraneas)
+
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor varchar(10) NOT NULL,
+    -> placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+    -> local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    -> codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+Query OK, 0 rows affected (0.01 sec)
+
+// se crea la entidad PROPIETARIO
+
+CREATE TABLE BD_SQLFINAL.propietario ( numero_contrato int NOT NULL, 
+tipo_persona varchar(9) NOT NULL, tipo_uso varchar(25) NOT NULL, PRIMARY KEY (numero_contrato));
+
+
+// se empiezan a crear las dependencias de llaves foraneas y requisitos
+
+// llave foranea opcional y restriccion PK en clase persona
+
+msql> ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT UNIQUE(numero_identificacion); ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT relacion_contractual FOREIGN KEY ( numero_contrato) REFERENCES contrato(numero_contrato);
+
+
+// se coloca la limitante de una placa unica para vehiculos registrados Llave foranea vehiculo para numero contrato e identificacion conductor
+
+ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT UNIQUE(placa); 
+ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_contractual FOREIGN KEY (numero_contrato) REFERENCES contrato(numero_contrato);
+ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_conductor FOREIGN KEY (identificacion_conductor) REFERENCES persona(numero_identificacion);
+
+
+// codigo unico y llaves foraneas puesto_almacenamiento 
+
+ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT UNIQUE(codigo);
+
+ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT puesto_recursivo FOREIGN KEY 
+(contiene) REFERENCES puesto_almacenamiento(codigo);
+
+ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT numero_nit FOREIGN KEY (bodega_nit) 
+REFERENCES bodega(nit);
+
+
+// numero_contrato unico y llaves para tipos de contrato y puesto almacenamiento
+
+ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+
+ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario ) 
+REFERENCES propietario( numero_contrato);
+
+ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia ) 
+REFERENCES membresia( numero_contrato);
+
+ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal) 
+REFERENCES temporal( numero_contrato);
+
+ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+REFERENCES puesto_almacenamiento( codigo);
+
+// numero_contrato unico temporal
+
+ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+
+// numero_contrato unico membresia
+
+ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+
+// numero_contrato unico propietario
+
+ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+
+ql> SHOW ENGINE INNODB STATUS;
+// producto codigo unico y llaves foraneas
+
+ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+
+ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+REFERENCES mercancia( codigo);
+
+ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+REFERENCES contenedor( codigo);
+
+ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+REFERENCES maquinaria( codigo);
+
+
+// registro numero unico y llaves foraneas
+
+ // revisar
+ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_conductor FOREIGN KEY (cedula_conductor)
+REFERENCES persona(numero_identificacion); 
+
+ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
+REFERENCES vehiculo(placa);
+
+// referencia comercial, fk contrato
+
+ALTER TABLE BD_SQLFINAL.referencia_comercial ADD CONSTRAINT
+id_contrato FOREIGN KEY (ref_numero_contrato)
+ REFERENCES contrato(numero_contrato); 
