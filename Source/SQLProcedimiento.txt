@@ -85,10 +85,10 @@ Query OK, 0 rows affected (0.01 sec)
 
 // Se crea entidad registro (sin llaves foraneas)
 
-mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor varchar(10) NOT NULL,
-    -> placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
-    -> local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
-    -> codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
+     placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+     local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    codigo_producto int NULL, PRIMARY KEY ( numero_registro));
 Query OK, 0 rows affected (0.01 sec)
 
 // se crea la entidad PROPIETARIO
@@ -168,8 +168,11 @@ REFERENCES maquinaria( codigo);
 // registro numero unico y llaves foraneas
 
  // revisar
-ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_conductor FOREIGN KEY (cedula_conductor)
-REFERENCES persona(numero_identificacion); 
+ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_cond FOREIGN KEY (cedula_conductor)
+REFERENCES BD_SQLFINAL.persona(numero_identificacion); 
+
+
+
 
 ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
 REFERENCES vehiculo(placa);
