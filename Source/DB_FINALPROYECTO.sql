@@ -90,16 +90,28 @@ CREATE TABLE `contrato` (
   `numero_contrato_membresia` int(11) DEFAULT NULL,
   `numero_contrato_temporal` int(11) DEFAULT NULL,
   `codigo_puesto_almacenamiento` int(11) NOT NULL,
+  `contratante` int(11) NOT NULL,
+  `referencia_personal_1` int(11) DEFAULT NULL,
+  `referencia_personal_2` int(11) DEFAULT NULL,
+  `referencia_comercio` int(11) DEFAULT NULL,
   PRIMARY KEY (`numero_contrato`),
   UNIQUE KEY `numero_contrato` (`numero_contrato`),
   KEY `contra_propietario` (`numero_contrato_propietario`),
   KEY `contra_membresia` (`numero_contrato_membresia`),
   KEY `contra_temporal` (`numero_contrato_temporal`),
   KEY `cod_puesto` (`codigo_puesto_almacenamiento`),
+  KEY `id_contratante` (`contratante`),
+  KEY `id_referencia_personal_1` (`referencia_personal_1`),
+  KEY `id_referencia_personal_2` (`referencia_personal_2`),
+  KEY `id_referencia_comercio` (`referencia_comercio`),
   CONSTRAINT `cod_puesto` FOREIGN KEY (`codigo_puesto_almacenamiento`) REFERENCES `puesto_almacenamiento` (`codigo`),
   CONSTRAINT `contra_membresia` FOREIGN KEY (`numero_contrato_membresia`) REFERENCES `membresia` (`numero_contrato`),
   CONSTRAINT `contra_propietario` FOREIGN KEY (`numero_contrato_propietario`) REFERENCES `propietario` (`numero_contrato`),
-  CONSTRAINT `contra_temporal` FOREIGN KEY (`numero_contrato_temporal`) REFERENCES `temporal` (`numero_contrato`)
+  CONSTRAINT `contra_temporal` FOREIGN KEY (`numero_contrato_temporal`) REFERENCES `temporal` (`numero_contrato`),
+  CONSTRAINT `id_contratante` FOREIGN KEY (`contratante`) REFERENCES `persona` (`numero_identificacion`),
+  CONSTRAINT `id_referencia_comercio` FOREIGN KEY (`referencia_comercio`) REFERENCES `referencia_comercial` (`identificacion`),
+  CONSTRAINT `id_referencia_personal_1` FOREIGN KEY (`referencia_personal_1`) REFERENCES `persona` (`numero_identificacion`),
+  CONSTRAINT `id_referencia_personal_2` FOREIGN KEY (`referencia_personal_2`) REFERENCES `persona` (`numero_identificacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -206,14 +218,15 @@ CREATE TABLE `persona` (
   `numero_identificacion` int(11) NOT NULL,
   `tipo` varchar(15) NOT NULL,
   `nombre_completo` varchar(30) NOT NULL,
-  `numero_contrato` int(11) DEFAULT NULL,
+  `numero_contrato_empleo` int(11) DEFAULT NULL,
   `registro_conduccion` varchar(15) DEFAULT NULL,
   `direccion` varchar(50) NOT NULL,
   `telefono` varchar(12) NOT NULL,
   `telefono_secundario` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`numero_identificacion`),
-  KEY `relacion_contractual` (`numero_contrato`),
-  CONSTRAINT `relacion_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`)
+  UNIQUE KEY `numero_identificacion` (`numero_identificacion`),
+  KEY `relacion_contractual` (`numero_contrato_empleo`),
+  CONSTRAINT `relacion_contractual` FOREIGN KEY (`numero_contrato_empleo`) REFERENCES `contrato` (`numero_contrato`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -244,6 +257,7 @@ CREATE TABLE `producto` (
   `codigo_maquinaria` int(11) DEFAULT NULL,
   `vehiculo_placa` varchar(6) NOT NULL,
   PRIMARY KEY (`codigo`),
+  UNIQUE KEY `codigo` (`codigo`),
   KEY `cod_mercancia` (`codigo_mercancia`),
   KEY `cod_contenedor` (`codigo_contenedor`),
   KEY `cod_maquinaria` (`codigo_maquinaria`),
@@ -301,6 +315,8 @@ CREATE TABLE `puesto_almacenamiento` (
   `contiene` int(11) DEFAULT NULL,
   `bodega_nit` varchar(9) NOT NULL,
   PRIMARY KEY (`codigo`),
+  UNIQUE KEY `codigo` (`codigo`),
+  UNIQUE KEY `codigo_2` (`codigo`),
   KEY `puesto_recursivo` (`contiene`),
   KEY `numero_nit` (`bodega_nit`),
   CONSTRAINT `numero_nit` FOREIGN KEY (`bodega_nit`) REFERENCES `bodega` (`nit`),
@@ -331,10 +347,7 @@ CREATE TABLE `referencia_comercial` (
   `razon_social` varchar(50) NOT NULL,
   `direccion` varchar(50) NOT NULL,
   `telefono_oficina` int(11) NOT NULL,
-  `ref_numero_contrato` int(11) NOT NULL,
-  PRIMARY KEY (`identificacion`),
-  KEY `id_contrato` (`ref_numero_contrato`),
-  CONSTRAINT `id_contrato` FOREIGN KEY (`ref_numero_contrato`) REFERENCES `contrato` (`numero_contrato`)
+  PRIMARY KEY (`identificacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -371,7 +384,9 @@ CREATE TABLE `registro` (
   `codigo_producto` int(11) DEFAULT NULL,
   PRIMARY KEY (`numero_registro`),
   KEY `ced_cond` (`cedula_conductor`),
-  CONSTRAINT `ced_cond` FOREIGN KEY (`cedula_conductor`) REFERENCES `persona` (`numero_identificacion`)
+  KEY `placa_veh` (`placa_vehiculo`),
+  CONSTRAINT `ced_cond` FOREIGN KEY (`cedula_conductor`) REFERENCES `persona` (`numero_identificacion`),
+  CONSTRAINT `placa_veh` FOREIGN KEY (`placa_vehiculo`) REFERENCES `vehiculo` (`placa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -455,4 +470,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-08 17:26:58
+-- Dump completed on 2021-11-09  9:47:06
