@@ -14,12 +14,21 @@ Query OK, 0 rows affected (0.01 sec)
 
 // Se crea la bodega, falta llave foranea x2
 
-mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(9) NOT NULL, ubicacion varchar(50) NOT NULL, propietario varchar(30) NOT NULL, tipo CHAR NOT NULL, largo double NOT NULL, ancho double NOT NULL, tipo_ambiente CHAR NOT NULL, tipo_producto VARCHAR(15) NOT NULL, material_construccion varchar(15) NOT NULL, cantidad_puestos int NOT NULL, PRIMARY KEY (nit));
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+ubicacion varchar(50) NOT NULL, propietario varchar(30) NOT NULL,
+largo int NOT NULL, ancho int NOT NULL,
+alto int NULL, tipo_ambiente CHAR NOT NULL,
+tipo_producto VARCHAR(15) NOT NULL,
+material_construccion varchar(15) NOT NULL,
+puertas_entrada int NULL, puertas_salida int NULL,
+cantidad_puestos int NOT NULL, PRIMARY KEY (nit));
 Query OK, 0 rows affected (0.01 sec)
 
 // Se crea el puesto de almacenamiento (sin llave foranea x3)
 
-mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL, localizacion_cuadrante varchar(15) NOT NULL, consecutivo double NOT NULL, contiene int NULL, bodega_nit varchar(9) NOT NULL, PRIMARY KEY (codigo));
+mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL, localizacion_cuadrante varchar(15) NOT NULL,
+consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
+tipo_local char NOT NULL, PRIMARY KEY (codigo));
 
 Query OK, 0 rows affected (0.01 sec)
 
@@ -150,7 +159,7 @@ ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
 
 ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
 
-ql> SHOW ENGINE INNODB STATUS;
+msql> SHOW ENGINE INNODB STATUS;
 // producto codigo unico y llaves foraneas
 
 ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
