@@ -23,15 +23,17 @@ DROP TABLE IF EXISTS `bodega`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bodega` (
-  `nit` varchar(9) NOT NULL,
+  `nit` varchar(11) NOT NULL,
   `ubicacion` varchar(50) NOT NULL,
   `propietario` varchar(30) NOT NULL,
-  `tipo` char(1) NOT NULL,
-  `largo` double NOT NULL,
-  `ancho` double NOT NULL,
+  `largo` int(11) NOT NULL,
+  `ancho` int(11) NOT NULL,
+  `alto` int(11) DEFAULT NULL,
   `tipo_ambiente` char(1) NOT NULL,
   `tipo_producto` varchar(15) NOT NULL,
   `material_construccion` varchar(15) NOT NULL,
+  `puertas_entrada` int(11) DEFAULT NULL,
+  `puertas_salida` int(11) DEFAULT NULL,
   `cantidad_puestos` int(11) NOT NULL,
   PRIMARY KEY (`nit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -311,12 +313,12 @@ DROP TABLE IF EXISTS `puesto_almacenamiento`;
 CREATE TABLE `puesto_almacenamiento` (
   `codigo` int(11) NOT NULL,
   `localizacion_cuadrante` varchar(15) NOT NULL,
-  `consecutivo` double NOT NULL,
+  `consecutivo` varchar(32) NOT NULL,
   `contiene` int(11) DEFAULT NULL,
-  `bodega_nit` varchar(9) NOT NULL,
+  `bodega_nit` varchar(11) NOT NULL,
+  `tipo_local` char(1) NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `codigo` (`codigo`),
-  UNIQUE KEY `codigo_2` (`codigo`),
   KEY `puesto_recursivo` (`contiene`),
   KEY `numero_nit` (`bodega_nit`),
   CONSTRAINT `numero_nit` FOREIGN KEY (`bodega_nit`) REFERENCES `bodega` (`nit`),
@@ -445,6 +447,7 @@ CREATE TABLE `vehiculo` (
   `numero_contrato` int(11) NOT NULL,
   `identificacion_conductor` int(11) NOT NULL,
   PRIMARY KEY (`placa`),
+  UNIQUE KEY `placa` (`placa`),
   KEY `referencia_contractual` (`numero_contrato`),
   KEY `referencia_conductor` (`identificacion_conductor`),
   CONSTRAINT `referencia_conductor` FOREIGN KEY (`identificacion_conductor`) REFERENCES `persona` (`numero_identificacion`),
@@ -470,4 +473,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-09  9:47:06
+-- Dump completed on 2021-11-09 15:06:31
