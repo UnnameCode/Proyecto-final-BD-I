@@ -112,10 +112,8 @@ public class Consultas {
     public static String Buscar_contrato_vigente(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT numero_contrato, tipo_persona, tipo_uso FROM propietario WHERE fecha_finalizacion > curdate() AND numero_contrato = (SELECT numero_contrato_propietario FROM contrato WHERE numero_contrato = (SELECT numero_contrato FROM persona));\\n\" +\n" +
-"\"SELECT numero_contrato, seguro_mecanica, fecha_finalizacion, frecuencia_pago, fecha_poliza, fecha_terminacion_poliza FROM membresia WHERE fecha_finalizacion > curdate() AND numero_contrato = (SELECT numero_contrato_membresia FROM contrato WHERE numero_contrato = (SELECT numero_contrato FROM persona));\\n\" +\n" +
-"\"SELECT numero_contrato, fecha_inicio, fecha_finalizacion, frecuencia_pago, poliza_amparo, local_asignado FROM membresia WHERE fecha_finalizacion > curdate() AND numero_contrato = (SELECT numero_contrato_temporal FROM contrato WHERE numero_contrato = (SELECT numero_contrato FROM persona));";
-        
+        String comando = "SELECT * FROM temporal WHERE temporal.fecha_finalizacion > curdate();\n" +
+"SELECT * FROM membresia WHERE membresia.fecha_finalizacion > curdate();";
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
         
@@ -128,9 +126,8 @@ public class Consultas {
     public static String Buscar_contrato_proximo_vencer(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT numero_contrato, tipo_persona, tipo_uso FROM propietario WHERE fecha_finalizacion > curdate() ORDER BY fecha_finalizacion ASC;\n" +
-"SELECT numero_contrato, seguro_mecanica, fecha_finalizacion, frecuencia_pago, fecha poliza, fecha_terminacion_poliza FROM membresia WHERE fecha_finalizacion > curdate() ORDER BY fecha_finalizacion ASC;\n" +
-"SELECT numero_contrato, fecha_inicio, fecha_finalizacion, frecuencia_pago, poliza_amparo, local_asignado FROM temporal WHERE fecha_finalizacion > curdate() ORDER BY fecha_finalizacion ASC;";
+        String comando = "SELECT * FROM temporal WHERE DATEDIFF (curdate(), fecha_finalizacion);\n" +
+"SELECT * FROM membresia WHERE DATEDIFF (curdate(), fecha_finalizacion);";
         
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
@@ -144,8 +141,8 @@ public class Consultas {
     public static String Buscar_clientes_categoria(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT * FROM persona WHERE numero_contrato_empleo = (SELECT numero_contrato FROM contrato ORDER BY numero_contrato_propietario OR numero_contrato_membresia OR numero_contrato_temporal ASC);\n" +
-"SELECT * FROM persona ORDER BY tipo ASC;";
+        String comando = "SELECT * FROM persona ORDER BY tipo;\n" +
+"SELECT * FROM contrato ORDER BY numero_contrato_temporal OR numero_contrato_membresia;";
         
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
@@ -159,7 +156,7 @@ public class Consultas {
     public static String Buscar_vehiculos_autorizados_contrato(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT * FROM vehiculo WHERE numero_contrato = (SELECT numero_contrato FROM CONTRATO);";
+        String comando = "SELECT * from vehiculo WHERE numero_contrato is TRUE;";
         
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
@@ -173,7 +170,7 @@ public class Consultas {
     public static String Buscar_vehiculos_autorizados_cliente(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT * FROM vehiculos WHERE identificacion_conductor =(SELECT cedula_conductor FROM registro);";
+        String comando = "SELECT * from vehiculo WHERE identificacion_conductor order by identificacion_conductor";
         
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
@@ -187,7 +184,7 @@ public class Consultas {
     public static String Buscar_visitantes_fecha(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada = '2021-10-9';";
+        String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada =" + fecha + "\');";
         
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
@@ -197,33 +194,6 @@ public class Consultas {
         
         return returnValue;
     }
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public static String ProcessQuerieResult(ResultSet resultSet) throws SQLException{
