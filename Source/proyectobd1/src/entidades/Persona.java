@@ -23,15 +23,15 @@ public class Persona {
     
     public static void Registrar_persona(Statement mysql, int numero_identificacion, String tipo, String nombreCompleto, String direccion, String telefono) throws SQLException{
         String comando = "INSERT INTO persona (numero_identificacion, tipo, nombre_completo, direccion,"
-                + " telefono) VALUES ("+ String.valueOf(numero_identificacion)+", "
-                + tipo+", "+ nombreCompleto+","+ direccion+ "," + telefono + ");";
+                + " telefono) VALUES ("+ String.valueOf(numero_identificacion)+", \""
+                + tipo+"\" , \""+ nombreCompleto+"\" , \""+ direccion+ "\", \"" + telefono + "\");";
         
         mysql.execute(comando);
     }
     
     public static void Registrar_licenciaPersona(Statement mysql, int identificacion, int licenciaConduccion) throws SQLException{
-        String comando = "UPDATE persona set registro_conduccion = " + String.valueOf(licenciaConduccion)+
-                " WHERE (persona.numero_identificacion = " + String.valueOf(identificacion)+ " );";
+        String comando = "UPDATE persona set registro_conduccion = \"" + String.valueOf(licenciaConduccion)+
+                "\" WHERE (persona.numero_identificacion = " + String.valueOf(identificacion)+ " );";
         
         mysql.execute(comando);
     }
