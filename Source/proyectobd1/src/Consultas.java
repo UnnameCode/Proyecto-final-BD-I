@@ -49,16 +49,16 @@ public class Consultas {
          stmt.executeUpdate(sql);
          
          System.out.println("consultar los datos de los clientes por categoria y sus contratos, aqui hay dos formas");
-         sql = "SELECT * FROM persona WHERE numero_contrato_empleo = (SELECT numero_contrato FROM contrato ORDER BY numero_contrato_propietario OR numero_contrato_membresia OR numero_contrato_temporal ASC);\n" +
+         sql = "SELECT * FROM persona WHERE tipo = 'insertar algo';\n" +
 "SELECT * FROM persona ORDER BY tipo ASC;";
          stmt.executeUpdate(sql);
 
          System.out.println("consultar los vehiculos autorizados para un contrato");
-         sql = "SELECT * FROM vehiculo WHERE numero_contrato = (SELECT numero_contrato FROM CONTRATO;";
+         sql = "SELECT * FROM ingreso WHERE placa_vehiculo = 'abc123';";
          stmt.executeUpdate(sql);
          
-         System.out.println("Consultar los vehículos autorizados para un cliente ");
-         sql = "SELECT * FROM vehiculos WHERE identificacion_conductor =(SELECT cedula_conductor FROM registro);";
+         System.out.println("consultar los vehiculos autorizados para un contrato ");
+         sql = "SELECT * FROM vehiculos WHERE ();";
          stmt.executeUpdate(sql);
          
           System.out.println("consultar los visitantes en una fecha especifica");
