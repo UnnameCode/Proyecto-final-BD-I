@@ -45,6 +45,7 @@ CREATE TABLE `bodega` (
 
 LOCK TABLES `bodega` WRITE;
 /*!40000 ALTER TABLE `bodega` DISABLE KEYS */;
+INSERT INTO `bodega` VALUES ('000010010-Y','Costa pacifica valle del cauca','S.portuaria Occidente','mixto-no definido',360,360,NULL,'M','Acero',12,12,120);
 /*!40000 ALTER TABLE `bodega` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +115,7 @@ CREATE TABLE `contrato` (
   CONSTRAINT `id_referencia_comercio` FOREIGN KEY (`referencia_comercio`) REFERENCES `referencia_comercial` (`identificacion`),
   CONSTRAINT `id_referencia_personal_1` FOREIGN KEY (`referencia_personal_1`) REFERENCES `persona` (`numero_identificacion`),
   CONSTRAINT `id_referencia_personal_2` FOREIGN KEY (`referencia_personal_2`) REFERENCES `persona` (`numero_identificacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +124,7 @@ CREATE TABLE `contrato` (
 
 LOCK TABLES `contrato` WRITE;
 /*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
+INSERT INTO `contrato` VALUES (5,1001,'A1-001-005-102',NULL,NULL,NULL,1,123454321,234565432,345678765,12345),(6,1002,'C12-015-010-015',NULL,NULL,NULL,2,234264234,234565432,345678765,54312),(7,1003,'M08-025-001-012',NULL,NULL,NULL,3,234543211,234565432,345678765,215454);
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,6 +240,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` VALUES (123454321,'Cedula','Francesco Bernoulli',NULL,'123214','Cra 32 #2A-99','342 0423',NULL),(234264234,'cedula','Monito jajay',NULL,NULL,'Cra 07 # 20-80','230 2323',NULL),(234543211,'Cedula','Alvaricokeins Uribito',NULL,NULL,'Cra 05 # 12-42','214 1411',NULL),(234565432,'Cedula','Arnulio Fernandez',NULL,'1314536','Cra 12 #1A-49','315 1353',NULL),(345678765,'Cedula','Santiago Duque ',NULL,'134232','Cra 07 # 13-42','390 4154',NULL);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +326,7 @@ CREATE TABLE `puesto_almacenamiento` (
   KEY `numero_nit` (`bodega_nit`),
   CONSTRAINT `numero_nit` FOREIGN KEY (`bodega_nit`) REFERENCES `bodega` (`nit`),
   CONSTRAINT `puesto_recursivo` FOREIGN KEY (`contiene`) REFERENCES `puesto_almacenamiento` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,6 +335,7 @@ CREATE TABLE `puesto_almacenamiento` (
 
 LOCK TABLES `puesto_almacenamiento` WRITE;
 /*!40000 ALTER TABLE `puesto_almacenamiento` DISABLE KEYS */;
+INSERT INTO `puesto_almacenamiento` VALUES (1,'CUADRANTE 1','A1-001-005-102',NULL,'000010010-Y','A'),(2,'CUADRANTE 2','C12-015-010-015',NULL,'000010010-Y','C'),(3,'CUADRANTE 3','M08-025-001-012',NULL,'000010010-Y','M');
 /*!40000 ALTER TABLE `puesto_almacenamiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,6 +363,7 @@ CREATE TABLE `referencia_comercial` (
 
 LOCK TABLES `referencia_comercial` WRITE;
 /*!40000 ALTER TABLE `referencia_comercial` DISABLE KEYS */;
+INSERT INTO `referencia_comercial` VALUES ('UID',12345,'Bayern','Farmaceutica wikiti','cra 21 #3A-58',4468877),('UID',54312,'ALKOSTO','Almacenes del centro','cra 26 #3A-40',4468878),('UID',215454,'Carregur','ALMACENES ÉXITO','cra 22 #9A-98',4468879),('UID',1344244,'Carulla','Almacenes wikiti','cra 50 #3B-89',4468880);
 /*!40000 ALTER TABLE `referencia_comercial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,4 +478,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-09 22:22:11
+-- Dump completed on 2021-11-09 23:39:05
