@@ -188,6 +188,12 @@ public class Clase_Gui extends javax.swing.JFrame {
 
         jLabel1.setText("Puesto Almacenamiento");
 
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Contrato");
 
         jLabel4.setText("Numero");
@@ -887,18 +893,10 @@ public class Clase_Gui extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
            try{
-             PreparedStatement pss = 
-                     cn.prepareStatement
-        ("INSERT INTO puesto_almacenamiento(codigo, localizacion_cuadrante, consecutivo, bodega_nit,contiene, tipo_local) VALUE (?,?,?,?,?,?) ");
-                
-                      
-               pss.setString(1,jTextField1.getText());
-               pss.setString(2,jTextField12.getText());
-               pss.setString(3,jTextField13.getText());
-               pss.setString(4,jTextField14.getText());
-               pss.setString(5,jTextField2.getText());
-               pss.setString(6, (String) jComboBox10.getSelectedItem());
-               pss.executeUpdate();
+               
+             PuestoAlmacenamiento.Registrar_PuestoAlmacenamiento(mysql, jTextField1.getText() , jTextField12.getText(), jTextField13.getText(),jComboBox2.getSelectedItem().toString() );
+             PuestoAlmacenamiento.Registrar_PuestoAlmacenamiento_dentro(mysql, jTextField2.getText());
+             
         }
           catch(Exception e){
              System.out.println(e.getMessage());
@@ -1021,6 +1019,10 @@ public class Clase_Gui extends javax.swing.JFrame {
     private void jComboBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox10ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
