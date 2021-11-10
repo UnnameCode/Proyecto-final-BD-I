@@ -21,7 +21,7 @@ alto int NULL, tipo_ambiente CHAR NOT NULL,
 tipo_producto VARCHAR(15) NOT NULL,
 material_construccion varchar(15) NOT NULL,
 puertas_entrada int NULL, puertas_salida int NULL,
-cantidad_puestos int NOT NULL, PRIMARY KEY (nit));
+cantidad_puestos int NULL, PRIMARY KEY (nit));
 Query OK, 0 rows affected (0.01 sec)
 
 // Se crea el puesto de almacenamiento (sin llave foranea x3)
