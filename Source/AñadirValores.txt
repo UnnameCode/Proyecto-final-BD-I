@@ -1,0 +1,1624 @@
+como ingresar los datos
+
+Crear un puesto de almacenamiento:
+
+- se requiere bodega (segun entiendo el enunciado solo hay una bodega, entonces seria esa)
+
+
+Registrar un contrato:
+
+- Se requiere crear previamente las personas que son contratantes y referenciales
+- Se requiere crear previamente la referencia con el comercio
+- Se requiere crear previamente el puesto de almacenamiento a asignar
+
+- Luego definir el tipo de contrato ( temporal, membresia o propietario)
+
+Registrar persona:
+
+- Si la persona va a ser empleada, se requiere previamente crear el contrato
+
+Registrar vehiculo:
+
+- se requiere previamente crear el contrato al que estara asociado
+- se requiere crear previamente el conductor identificado
+
+Registrar producto:
+
+- requiere registrar previamente el vehiculo que ¿ lo entrega ?
+- para producto de tipo mercancia se requiere crear previamente la persona que lo va a 
+
+Crear registro:
+
+- se requiere previamente al conductor registrado, asi como el vehiculo que ingresa
+- en caso de retirar producto, este debe existir
+
+
+INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido",
+360, 360, NULL, 'M', "Acero", 12, 12, 120);
+
+Query OK, 1 row affected (0.00 sec)
+
+// puestos 
+
+ INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit, tipo_local ) VALUES ("CUADRANTE 1", "A1-001-005-102", NULL, "000010010-Y", 'A');
+Query OK, 1 row affected (0.01 sec)
+
+INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+ tipo_local ) VALUES ("CUADRANTE 2", "C12-015-010-015", NULL, "000010010-Y", 'C');
+
+INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+ tipo_local ) VALUES ("CUADRANTE 3", "M08-025-001-012", NULL, "000010010-Y", 'M');
+
+INSERT INTO persona VALUES ("123454321", "Cedula", "Francesco Bernoulli", NULL, "123214", "Cra 32 #2A-99", "342 0423", NULL);
+
+INSERT INTO persona VALUES ("234565432", "Cedula", "Arnulio Fernandez", NULL, "1314536", "Cra 12 #1A-49", "315 1353", NULL);
+
+INSERT INTO persona VALUES ("345678765", "Cedula" , "Santiago Duque ",  NULL, "134232", "Cra 07 # 13-42", "390 4154", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PERSONA VALUES ("234543211", "Cedula", "Alvaricokeins Uribito", NULL, NULL,"Cra 05 # 12-42","214 1411",NULL);
+Query OK, 1 row affected (0.00 sec)
+mysql> INSERT INTO PERSONA VALUES ("234264234", "cedula","Monito jajay", NULL, NULL, "Cra 07 # 20-80", "230 2323", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+
+
+
+
+
+
+
+INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+ "A1-001-005-102", NULL, NULL, NULL, 1, 123454321, 234565432, 345678765, 12345);
+
+
+INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1003,
+ "M08-025-001-012", NULL, NULL, NULL, 3, 234543211, 234565432, 345678765, 215454);
+
+
+
+//// iba hasta contrato
+
+
+
+    -> REFERENCES bodega(nit);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario )
+    -> REFERENCES propietario( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia )
+    -> REFERENCES membresia( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal)
+    -> REFERENCES temporal( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+    -> REFERENCES puesto_almacenamiento( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+    -> REFERENCES mercancia( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+    -> REFERENCES contenedor( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+    -> REFERENCES maquinaria( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_cond FOREIGN KEY (cedula_conductor)
+    -> REFERENCES BD_SQLFINAL.persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
+    -> REFERENCES vehiculo(placa);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_contratante FOREIGN KEY (contratante)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_1 FOREIGN KEY (referencia_personal_1)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_2 FOREIGN KEY (referencia_personal_2)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_comercio FOREIGN KEY (referencia_comercio)
+    ->  REFERENCES referencia_comercial(identificacion);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show databases;
++-------------------------+
+| Database                |
++-------------------------+
+| information_schema      |
+| bd_sqlfinal             |
+| bd_sqlparcial2          |
+| db_registro_estudiantil |
+| mysql                   |
+| performance_schema      |
+| pruebaimportefinal      |
+| sakila                  |
+| sys                     |
+| test                    |
+| world                   |
++-------------------------+
+11 rows in set (0.00 sec)
+
+mysql> drop database db_SQLFINAL;
+ERROR 1008 (HY000): Can't drop database 'db_sqlfinal'; database doesn't exist
+mysql> drop database bd_SQLFINAL;
+Query OK, 14 rows affected (0.08 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.persona ( numero_identificacion INT NOT NULL, tipo varchar(15) NOT NULL,
+    ->     nombre_completo varchar(30) NOT NULL, numero_contrato_empleo INT NULL, registro_conduccion varchar(15) NULL,
+    ->     direccion varchar(50) NOT NULL, telefono varchar(12) NOT NULL, telefono_secundario varchar(12) NULL,
+    ->     PRIMARY KEY (numero_identificacion));
+ERROR 1049 (42000): Unknown database 'bd_sqlfinal'
+mysql>  CREATE DATABASE BD_SQLFINAL;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.persona ( numero_identificacion INT NOT NULL, tipo varchar(15) NOT NULL,
+    ->     nombre_completo varchar(30) NOT NULL, numero_contrato_empleo INT NULL, registro_conduccion varchar(15) NULL,
+    ->     direccion varchar(50) NOT NULL, telefono varchar(12) NOT NULL, telefono_secundario varchar(12) NULL,
+    ->     PRIMARY KEY (numero_identificacion));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(30) NOT NULL,
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente CHAR NOT NULL,
+    -> tipo_producto VARCHAR(15) NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NOT NULL, PRIMARY KEY (nit));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> Query OK, 0 rows affected (0.01 sec)
+    -> ^C
+mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL, localizacion_cuadrante varchar(15) NOT NULL,
+    -> consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
+    -> tipo_local char NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.vehiculo ( placa varchar(6) NOT NULL, tipo varchar(10) NOT NULL, color varchar(10) NOT NULL,
+    ->     modelo YEAR(4) NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
+    ->     identificacion_conductor int NOT NULL, PRIMARY KEY ( placa ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    ->     estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+    ->     PRIMARY KEY ( codigo) ) ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.referencia_comercial ( tipo_identificacion varchar(15) NOT NULL, identificacion int NOT NULL, nombre_completo varchar(30) NOT NULL,
+    ->     razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, PRIMARY KEY ( identificacion ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL, poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL,
+    ->    numero_contrato_propietario int NULL, numero_contrato_membresia int NULL, numero_contrato_temporal int NULL, codigo_puesto_almacenamiento int NOT NULL,
+    ->    contratante int NOT NULL, referencia_personal_1 int NULL, referencia_personal_2 int NULL, referencia_comercio int NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.temporal ( numero_contrato int NOT NULL, fecha_inicio date NOT NULL, fecha_finalizacion date NOT NULL, frecuencia_pago char NOT NULL,
+    ->     poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.membresia ( numero_contrato int NOT NULL, seguro_mecanica char NOT NULL, fecha_finalizacion date NOT NULL,
+    ->      frecuencia_pago char NOT NULL, fecha_poliza date NOT NULL, fecha_terminacion_poliza date NOT NULL, PRIMARY KEY ( numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.mercancia ( codigo int NOT NULL, fragilidad double NOT NULL, peso double NOT NULL, volumen double NOT NULL,
+    ->     fecha_vencimiento date NULL, fecha_empaque date NOT NULL, valor_nominal double NOT NULL, empacador int NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor char NOT NULL, largo double NOT NULL, ancho double NOT NULL,
+    ->      alto double NOT NULL, capacidad_carga double NOT NULL, empresa_responsable varchar(30) NOT NULL, poliza_manejo varchar(15) NOT NULL,
+    ->      PRIMARY KEY (codigo));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedo' at line 1
+mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor char NOT NULL, largo double NOT NULL, ancho double NOT NULL,
+    ->      alto double NOT NULL, capacidad_carga double NOT NULL, empresa_responsable varchar(30) NOT NULL, poliza_manejo varchar(15) NOT NULL,
+    ->      PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
+    ->     PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
+    ->      placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+    ->      local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    ->     codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.propietario ( numero_contrato int NOT NULL,
+    -> tipo_persona varchar(9) NOT NULL, tipo_uso varchar(25) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT UNIQUE(numero_identificacion); ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT relacion_contractual FOREIGN KEY ( numero_contrato_empleo) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT UNIQUE(placa);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_contractual FOREIGN KEY (numero_contrato) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_conductor FOREIGN KEY (identificacion_conductor) REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT puesto_recursivo FOREIGN KEY
+    -> (contiene) REFERENCES puesto_almacenamiento(codigo);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT numero_nit FOREIGN KEY (bodega_nit)
+    -> REFERENCES bodega(nit);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario )
+    -> REFERENCES propietario( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia )
+    -> REFERENCES membresia( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal)
+    -> REFERENCES temporal( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+    -> REFERENCES puesto_almacenamiento( codigo);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+    -> REFERENCES mercancia( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+    -> REFERENCES contenedor( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+    -> REFERENCES maquinaria( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_cond FOREIGN KEY (cedula_conductor)
+    -> REFERENCES BD_SQLFINAL.persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
+    -> REFERENCES vehiculo(placa);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_contratante FOREIGN KEY (contratante)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_1 FOREIGN KEY (referencia_personal_1)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_2 FOREIGN KEY (referencia_personal_2)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_comercio FOREIGN KEY (referencia_comercio)
+    ->  REFERENCES referencia_comercial(identificacion);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW DATABASES;
++-------------------------+
+| Database                |
++-------------------------+
+| information_schema      |
+| bd_sqlfinal             |
+| bd_sqlparcial2          |
+| db_registro_estudiantil |
+| mysql                   |
+| performance_schema      |
+| pruebaimportefinal      |
+| sakila                  |
+| sys                     |
+| test                    |
+| world                   |
++-------------------------+
+11 rows in set (0.00 sec)
+
+mysql> drop database BD_SQLFINAL;
+Query OK, 14 rows affected (0.08 sec)
+
+mysql>  CREATE DATABASE BD_SQLFINAL;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.persona ( numero_identificacion INT NOT NULL, tipo varchar(15) NOT NULL,
+    ->     nombre_completo varchar(30) NOT NULL, numero_contrato_empleo INT NULL, registro_conduccion varchar(15) NULL,
+    ->     direccion varchar(50) NOT NULL, telefono varchar(12) NOT NULL, telefono_secundario varchar(12) NULL,
+    ->     PRIMARY KEY (numero_identificacion));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(30) NOT NULL,
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente CHAR NOT NULL,
+    -> tipo_producto VARCHAR(15) NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NULL, PRIMARY KEY (nit));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL AUTO_INCREMENT, localizacion_cuadrante varchar(15) NOT NULL,
+    -> consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
+    -> tipo_local char NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.vehiculo ( placa varchar(6) NOT NULL, tipo varchar(10) NOT NULL, color varchar(10) NOT NULL,
+    ->     modelo YEAR(4) NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
+    ->     identificacion_conductor int NOT NULL, PRIMARY KEY ( placa ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    ->     estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+    ->     PRIMARY KEY ( codigo) ) ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.referencia_comercial ( tipo_identificacion varchar(15) NOT NULL, identificacion int NOT NULL, nombre_completo varchar(30) NOT NULL,
+    ->     razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, PRIMARY KEY ( identificacion ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL AUTO_INCREMENT , poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL,
+    ->    numero_contrato_propietario int NULL, numero_contrato_membresia int NULL, numero_contrato_temporal int NULL, codigo_puesto_almacenamiento int NOT NULL,
+    ->    contratante int NOT NULL, referencia_personal_1 int NULL, referencia_personal_2 int NULL, referencia_comercio int NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.temporal ( numero_contrato int NOT NULL, fecha_inicio date NOT NULL, fecha_finalizacion date NOT NULL, frecuencia_pago char NOT NULL,
+    ->     poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.membresia ( numero_contrato int NOT NULL, seguro_mecanica char NOT NULL, fecha_finalizacion date NOT NULL,
+    ->      frecuencia_pago char NOT NULL, fecha_poliza date NOT NULL, fecha_terminacion_poliza date NOT NULL, PRIMARY KEY ( numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.mercancia ( codigo int NOT NULL, fragilidad double NOT NULL, peso double NOT NULL, volumen double NOT NULL,
+    ->     fecha_vencimiento date NULL, fecha_empaque date NOT NULL, valor_nominal double NOT NULL, empacador int NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor char NOT NULL, largo double NOT NULL, ancho double NOT NULL,
+    ->      alto double NOT NULL, capacidad_carga double NOT NULL, empresa_responsable varchar(30) NOT NULL, poliza_manejo varchar(15) NOT NULL,
+    ->      PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> REATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
+    ->     PRIMARY KEY (codigo));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT ' at line 1
+mysql> CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
+    ->     PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
+    ->      placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+    ->      local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    ->     codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.propietario ( numero_contrato int NOT NULL,
+    -> tipo_persona varchar(9) NOT NULL, tipo_uso varchar(25) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT UNIQUE(numero_identificacion); ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT relacion_contractual FOREIGN KEY ( numero_contrato_empleo) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT UNIQUE(placa);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_contractual FOREIGN KEY (numero_contrato) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_conductor FOREIGN KEY (identificacion_conductor) REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT puesto_recursivo FOREIGN KEY
+    -> (contiene) REFERENCES puesto_almacenamiento(codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT numero_nit FOREIGN KEY (bodega_nit)
+    -> REFERENCES bodega(nit);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario )
+    -> REFERENCES propietario( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia )
+    -> REFERENCES membresia( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal)
+    -> REFERENCES temporal( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+    -> REFERENCES puesto_almacenamiento( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+    -> REFERENCES mercancia( codigo);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+    -> REFERENCES contenedor( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+    -> REFERENCES maquinaria( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_cond FOREIGN KEY (cedula_conductor)
+    -> REFERENCES BD_SQLFINAL.persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
+    -> REFERENCES vehiculo(placa);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_contratante FOREIGN KEY (contratante)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_1 FOREIGN KEY (referencia_personal_1)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_2 FOREIGN KEY (referencia_personal_2)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_comercio FOREIGN KEY (referencia_comercio)
+    ->  REFERENCES referencia_comercial(identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show databases;
++-------------------------+
+| Database                |
++-------------------------+
+| information_schema      |
+| bd_sqlfinal             |
+| bd_sqlparcial2          |
+| db_registro_estudiantil |
+| mysql                   |
+| performance_schema      |
+| pruebaimportefinal      |
+| sakila                  |
+| sys                     |
+| test                    |
+| world                   |
++-------------------------+
+11 rows in set (0.00 sec)
+
+mysql> use BD_SQLFINAL;
+Database changed
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "Sociedad portuaria de Occidente",
+    -> "mixto-no definido", 360, 360, NULL, "Acero", 12, 12, M, 120);
+ERROR 1054 (42S22): Unknown column 'M' in 'field list'
+mysql> "mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120)' at line 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "Sociedad portuaria de Occidente",
+    -> "mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1406 (22001): Data too long for column 'propietario' at row 1
+mysql> "mixto-no definido", 360, 360, NULL, "Acero", 12, 12, M, 120)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"mixto-no definido", 360, 360, NULL, "Acero", 12, 12, M, 120)' at line 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente",
+    -> "mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1366 (HY000): Incorrect integer value: 'mixto-no definido' for column 'largo' at row 1
+mysql> DROP DATABASE BD_SQLFINAL;
+Query OK, 14 rows affected (0.09 sec)
+
+mysql> CREATE DATABASE BD_SQLFINAL;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.persona ( numero_identificacion INT NOT NULL, tipo varchar(15) NOT NULL,
+    ->     nombre_completo varchar(30) NOT NULL, numero_contrato_empleo INT NULL, registro_conduccion varchar(15) NULL,
+    ->     direccion varchar(50) NOT NULL, telefono varchar(12) NOT NULL, telefono_secundario varchar(12) NULL,
+    ->     PRIMARY KEY (numero_identificacion));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(50) NOT NULL,
+    -> tipo_producto  varchar(25) NOT NULL
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente CHAR NOT NULL,
+    -> tipo_producto VARCHAR(15) NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NULL, PRIMARY KEY (nit));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'largo int NOT NULL, ancho int NOT NULL,
+alto int NULL, tipo_ambiente CHAR NOT NU' at line 4
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(50) NOT NULL,
+    -> tipo_producto  varchar(25) NOT NULL,
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente CHAR NOT NULL,
+    -> tipo_producto VARCHAR(15) NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NULL, PRIMARY KEY (nit));
+ERROR 1060 (42S21): Duplicate column name 'tipo_producto'
+mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(50) NOT NULL,
+    -> tipo_producto  varchar(25) NOT NULL,
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente CHAR NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NULL, PRIMARY KEY (nit));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL AUTO_INCREMENT, localizacion_cuadrante varchar(15) NOT NULL,
+    -> consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
+    -> tipo_local char NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.vehiculo ( placa varchar(6) NOT NULL, tipo varchar(10) NOT NULL, color varchar(10) NOT NULL,
+    ->     modelo YEAR(4) NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
+    ->     identificacion_conductor int NOT NULL, PRIMARY KEY ( placa ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    ->     estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+    ->     PRIMARY KEY ( codigo) ) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMEN' at line 1
+mysql>  CREATE TABLE BD_SQLFINAL.referencia_comercial ( tipo_identificacion varchar(15) NOT NULL, identificacion int NOT NULL, nombre_completo varchar(30) NOT NULL,
+    ->     razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, PRIMARY KEY ( identificacion ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL AUTO_INCREMENT , poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL,
+    ->    numero_contrato_propietario int NULL, numero_contrato_membresia int NULL, numero_contrato_temporal int NULL, codigo_puesto_almacenamiento int NOT NULL,
+    ->    contratante int NOT NULL, referencia_personal_1 int NULL, referencia_personal_2 int NULL, referencia_comercio int NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.temporal ( numero_contrato int NOT NULL, fecha_inicio date NOT NULL, fecha_finalizacion date NOT NULL, frecuencia_pago char NOT NULL,
+    ->     poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.membresia ( numero_contrato int NOT NULL, seguro_mecanica char NOT NULL, fecha_finalizacion date NOT NULL,
+    ->      frecuencia_pago char NOT NULL, fecha_poliza date NOT NULL, fecha_terminacion_poliza date NOT NULL, PRIMARY KEY ( numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.mercancia ( codigo int NOT NULL, fragilidad double NOT NULL, peso double NOT NULL, volumen double NOT NULL,
+    ->     fecha_vencimiento date NULL, fecha_empaque date NOT NULL, valor_nominal double NOT NULL, empacador int NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor char NOT NULL, largo double NOT NULL, ancho double NOT NULL,
+    ->      alto double NOT NULL, capacidad_carga double NOT NULL, empresa_responsable varchar(30) NOT NULL, poliza_manejo varchar(15) NOT NULL,
+    ->      PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
+    ->     PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
+    ->      placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+    ->      local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    ->     codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.propietario ( numero_contrato int NOT NULL,
+    -> tipo_persona varchar(9) NOT NULL, tipo_uso varchar(25) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT UNIQUE(numero_identificacion); ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT relacion_contractual FOREIGN KEY ( numero_contrato_empleo) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT UNIQUE(placa);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_contractual FOREIGN KEY (numero_contrato) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_conductor FOREIGN KEY (identificacion_conductor) REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT puesto_recursivo FOREIGN KEY
+    -> (contiene) REFERENCES puesto_almacenamiento(codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT numero_nit FOREIGN KEY (bodega_nit)
+    -> REFERENCES bodega(nit);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario )
+    -> REFERENCES propietario( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia )
+    -> REFERENCES membresia( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal)
+    -> REFERENCES temporal( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+    -> REFERENCES puesto_almacenamiento( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+ERROR 1146 (42S02): Table 'bd_sqlfinal.producto' doesn't exist
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+    -> REFERENCES mercancia( codigo);
+ERROR 1146 (42S02): Table 'bd_sqlfinal.producto' doesn't exist
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+    -> REFERENCES contenedor( codigo);
+ERROR 1146 (42S02): Table 'bd_sqlfinal.producto' doesn't exist
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+    -> REFERENCES maquinaria( codigo);
+ERROR 1146 (42S02): Table 'bd_sqlfinal.producto' doesn't exist
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    ->     estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+    ->     PRIMARY KEY ( codigo) ) ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
+    ->      placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+    ->      local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    ->     codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+ERROR 1050 (42S01): Table 'registro' already exists
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.propietario ( numero_contrato int NOT NULL,
+    -> tipo_persona varchar(9) NOT NULL, tipo_uso varchar(25) NOT NULL, PRIMARY KEY (numero_contrato));
+ERROR 1050 (42S01): Table 'propietario' already exists
+mysql> ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT UNIQUE(numero_identificacion); ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT relacion_contractual FOREIGN KEY ( numero_contrato_empleo) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT UNIQUE(placa);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_contractual FOREIGN KEY (numero_contrato) REFERENCES contrato(numero_contrato);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_conductor FOREIGN KEY (identificacion_conductor) REFERENCES persona(numero_identificacion);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT puesto_recursivo FOREIGN KEY
+    -> (contiene) REFERENCES puesto_almacenamiento(codigo);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT numero_nit FOREIGN KEY (bodega_nit)
+    -> REFERENCES bodega(nit);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario )
+    -> REFERENCES propietario( numero_contrato);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia )
+    -> REFERENCES membresia( numero_contrato);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal)
+    -> REFERENCES temporal( numero_contrato);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+    -> REFERENCES puesto_almacenamiento( codigo);
+ERROR 1022 (23000): Can't write; duplicate key in table '#sql-31f0_17'
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+    -> REFERENCES mercancia( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+    -> REFERENCES contenedor( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+    -> REFERENCES maquinaria( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_cond FOREIGN KEY (cedula_conductor)
+    -> REFERENCES BD_SQLFINAL.persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
+    -> REFERENCES vehiculo(placa);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_contratante FOREIGN KEY (contratante)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_1 FOREIGN KEY (referencia_personal_1)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_2 FOREIGN KEY (referencia_personal_2)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_comercio FOREIGN KEY (referencia_comercio)
+    ->  REFERENCES referencia_comercial(identificacion);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente",
+    -> "mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1046 (3D000): No database selected
+mysql> id_referencia_comercio FOREIGN KEY (referencia_comercio)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id_referencia_comercio FOREIGN KEY (referencia_comercio)' at line 1
+mysql> SHOW DATABASES;
++-------------------------+
+| Database                |
++-------------------------+
+| information_schema      |
+| bd_sqlfinal             |
+| bd_sqlparcial2          |
+| db_registro_estudiantil |
+| mysql                   |
+| performance_schema      |
+| pruebaimportefinal      |
+| sakila                  |
+| sys                     |
+| test                    |
+| world                   |
++-------------------------+
+11 rows in set (0.00 sec)
+
+mysql> select BD_SQLFINAL;
+ERROR 1054 (42S22): Unknown column 'BD_SQLFINAL' in 'field list'
+mysql> use BD_SQLFINAL;
+Database changed
+mysql>
+mysql>         Integer.getInteger(variable tipo string que contiene int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Integer.getInteger(variable tipo string que contiene int)' at line 1
+mysql>         Double.getDouble(variable tipo string que contiene double);^Z
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Double.getDouble(variable tipo string que contiene double)' at line 1
+    -> ;
+ERROR:
+No query specified
+
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, M, 120);
+ERROR 1054 (42S22): Unknown column 'M' in 'field list'
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, M, 120);
+ERROR 1054 (42S22): Unknown column 'M' in 'field list'
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, "M", 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> drop database BD_SQLFINAL;
+Query OK, 14 rows affected (0.07 sec)
+
+mysql> caca
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'caca' at line 1
+mysql> CREATE DATABASE BD_SQLFINAL;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.persona ( numero_identificacion INT NOT NULL, tipo varchar(15) NOT NULL,
+    ->     nombre_completo varchar(30) NOT NULL, numero_contrato_empleo INT NULL, registro_conduccion varchar(15) NULL,
+    ->     direccion varchar(50) NOT NULL, telefono varchar(12) NOT NULL, telefono_secundario varchar(12) NULL,
+    ->     PRIMARY KEY (numero_identificacion));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(50) NOT NULL,
+    -> tipo_producto  varchar(25) NOT NULL,
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente varchar(1) NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NULL, PRIMARY KEY (nit));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+ubicacion var' at line 1
+mysql> Query OK, 0 rows affected (0.01 sec)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Query OK, 0 rows affected (0.01 sec)' at line 1
+mysql>  CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
+    -> ubicacion varchar(50) NOT NULL, propietario varchar(50) NOT NULL,
+    -> tipo_producto  varchar(25) NOT NULL,
+    -> largo int NOT NULL, ancho int NOT NULL,
+    -> alto int NULL, tipo_ambiente varchar(1) NOT NULL,
+    -> material_construccion varchar(15) NOT NULL,
+    -> puertas_entrada int NULL, puertas_salida int NULL,
+    -> cantidad_puestos int NULL, PRIMARY KEY (nit));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL AUTO_INCREMENT, localizacion_cuadrante varchar(15) NOT NULL,
+    -> consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
+    -> tipo_local varchar(1) NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.vehiculo ( placa varchar(6) NOT NULL, tipo varchar(10) NOT NULL, color varchar(10) NOT NULL,
+    ->     modelo YEAR(4) NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
+    ->     identificacion_conductor int NOT NULL, PRIMARY KEY ( placa ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo varchar(1) NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    ->     estado_poliza varchar(1) NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+    ->     PRIMARY KEY ( codigo) ) ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.referencia_comercial ( tipo_identificacion varchar(15) NOT NULL, identificacion int NOT NULL, nombre_completo varchar(30) NOT NULL,
+    ->     razon_social varchar(50) NOT NULL, direccion varchar(50) NOT NULL, telefono_oficina int NOT NULL, PRIMARY KEY ( identificacion ));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL AUTO_INCREMENT , poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL,
+    ->    numero_contrato_propietario int NULL, numero_contrato_membresia int NULL, numero_contrato_temporal int NULL, codigo_puesto_almacenamiento int NOT NULL,
+    ->    contratante int NOT NULL, referencia_personal_1 int NULL, referencia_personal_2 int NULL, referencia_comercio int NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.temporal ( numero_contrato int NOT NULL, fecha_inicio date NOT NULL, fecha_finalizacion date NOT NULL, frecuencia_pago varchar(1) NOT NULL,
+    ->     poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.membresia ( numero_contrato int NOT NULL, seguro_mecanica varchar(1) NOT NULL, fecha_finalizacion date NOT NULL,
+    ->      frecuencia_pago varchar(1) NOT NULL, fecha_poliza date NOT NULL, fecha_terminacion_poliza date NOT NULL, PRIMARY KEY ( numero_contrato));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.mercancia ( codigo int NOT NULL, fragilidad double NOT NULL, peso double NOT NULL, volumen double NOT NULL,
+    ->     fecha_vencimiento date NULL, fecha_empaque date NOT NULL, valor_nominal double NOT NULL, empacador int NOT NULL, PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor varchar(1) NOT NULL, largo double NOT NULL, ancho double NOT NULL,
+    ->      alto double NOT NULL, capacidad_carga double NOT NULL, empresa_responsable varchar(30) NOT NULL, poliza_manejo varchar(15) NOT NULL,
+    ->      PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
+    ->     PRIMARY KEY (codigo));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
+    ->      placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
+    ->      local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia varchar(1) NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+    ->     codigo_producto int NULL, PRIMARY KEY ( numero_registro));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> CREATE TABLE BD_SQLFINAL.propietario ( numero_contrato int NOT NULL,
+    -> tipo_persona varchar(9) NOT NULL, tipo_uso varchar(25) NOT NULL, PRIMARY KEY (numero_contrato));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT UNIQUE(numero_identificacion); ALTER TABLE BD_SQLFINAL.persona ADD CONSTRAINT relacion_contractual FOREIGN KEY ( numero_contrato_empleo) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT UNIQUE(placa);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_contractual FOREIGN KEY (numero_contrato) REFERENCES contrato(numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE BD_SQLFINAL.vehiculo ADD CONSTRAINT referencia_conductor FOREIGN KEY (identificacion_conductor) REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT puesto_recursivo FOREIGN KEY
+    -> (contiene) REFERENCES puesto_almacenamiento(codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.puesto_almacenamiento ADD CONSTRAINT numero_nit FOREIGN KEY (bodega_nit)
+    -> REFERENCES bodega(nit);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_propietario FOREIGN KEY ( numero_contrato_propietario )
+    -> REFERENCES propietario( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_membresia FOREIGN KEY ( numero_contrato_membresia )
+    -> REFERENCES membresia( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT contra_temporal FOREIGN KEY ( numero_contrato_temporal)
+    -> REFERENCES temporal( numero_contrato);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT cod_puesto FOREIGN KEY ( codigo_puesto_almacenamiento)
+    -> REFERENCES puesto_almacenamiento( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.temporal ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.membresia ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.propietario ADD CONSTRAINT UNIQUE(numero_contrato);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW ENGINE INNODB STATUS;
++--------+------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Type   | Name | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
++--------+------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| InnoDB |      |
+=====================================
+2021-11-09 21:53:45 0x3c64 INNODB MONITOR OUTPUT
+=====================================
+Per second averages calculated from the last 47 seconds
+-----------------
+BACKGROUND THREAD
+-----------------
+srv_master_thread loops: 170 srv_active, 0 srv_shutdown, 92597 srv_idle
+srv_master_thread log flush and writes: 92767
+----------
+SEMAPHORES
+----------
+OS WAIT ARRAY INFO: reservation count 777
+OS WAIT ARRAY INFO: signal count 1131
+RW-shared spins 0, rounds 1831, OS waits 508
+RW-excl spins 0, rounds 9116, OS waits 15
+RW-sx spins 921, rounds 10702, OS waits 88
+Spin rounds per wait: 1831.00 RW-shared, 9116.00 RW-excl, 11.62 RW-sx
+------------------------
+LATEST FOREIGN KEY ERROR
+------------------------
+2021-11-09 21:33:32 0x3c64 Error in foreign key constraint creation for table `bd_sqlfinal`.`#sql-31f0_17`.
+A foreign key constraint of name `bd_sqlfinal`.`cod_puesto`
+already exists. (Note that internally InnoDB adds 'databasename'
+in front of the user-defined constraint name.)
+Note that InnoDB's FOREIGN KEY system tables store
+constraint names as case-insensitive, with the
+MySQL standard latin1_swedish_ci collation. If you
+create tables or databases whose names differ only in
+the character case, then collisions in constraint
+names can occur. Workaround: name your constraints
+explicitly with unique names.
+------------
+TRANSACTIONS
+------------
+Trx id counter 14379
+Purge done for trx's n:o < 14377 undo n:o < 0 state: running but idle
+History list length 110
+LIST OF TRANSACTIONS FOR EACH SESSION:
+---TRANSACTION 284218041635176, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 284218041634304, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 284218041633432, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+---TRANSACTION 284218041632560, not started
+0 lock struct(s), heap size 1136, 0 row lock(s)
+--------
+FILE I/O
+--------
+I/O thread 0 state: wait Windows aio (insert buffer thread)
+I/O thread 1 state: wait Windows aio (log thread)
+I/O thread 2 state: wait Windows aio (read thread)
+I/O thread 3 state: wait Windows aio (read thread)
+I/O thread 4 state: wait Windows aio (read thread)
+I/O thread 5 state: wait Windows aio (read thread)
+I/O thread 6 state: wait Windows aio (write thread)
+I/O thread 7 state: wait Windows aio (write thread)
+I/O thread 8 state: wait Windows aio (write thread)
+I/O thread 9 state: wait Windows aio (write thread)
+Pending normal aio reads: [0, 0, 0, 0] , aio writes: [0, 0, 0, 0] ,
+ ibuf aio reads:, log i/o's:, sync i/o's:
+Pending flushes (fsync) log: 0; buffer pool: 0
+4730 OS file reads, 13634 OS file writes, 5416 OS fsyncs
+4.36 reads/s, 16384 avg bytes/read, 18.79 writes/s, 8.70 fsyncs/s
+-------------------------------------
+INSERT BUFFER AND ADAPTIVE HASH INDEX
+-------------------------------------
+Ibuf: size 1, free list len 0, seg size 2, 0 merges
+merged operations:
+ insert 0, delete mark 0, delete 0
+discarded operations:
+ insert 0, delete mark 0, delete 0
+Hash table size 2267, node heap has 0 buffer(s)
+Hash table size 2267, node heap has 0 buffer(s)
+Hash table size 2267, node heap has 0 buffer(s)
+Hash table size 2267, node heap has 0 buffer(s)
+Hash table size 2267, node heap has 1 buffer(s)
+Hash table size 2267, node heap has 1 buffer(s)
+Hash table size 2267, node heap has 1 buffer(s)
+Hash table size 2267, node heap has 0 buffer(s)
+0.02 hash searches/s, 54.98 non-hash searches/s
+---
+LOG
+---
+Log sequence number 9516216
+Log flushed up to   9516216
+Pages flushed up to 9516216
+Last checkpoint at  9516207
+0 pending log flushes, 0 pending chkp writes
+3063 log i/o's done, 5.06 log i/o's/second
+----------------------
+BUFFER POOL AND MEMORY
+----------------------
+Total large memory allocated 8585216
+Dictionary memory allocated 463605
+Buffer pool size   512
+Free buffers       253
+Database pages     256
+Old database pages 0
+Modified db pages  0
+Pending reads      0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 0, not young 0
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 4520, created 1670, written 8993
+4.36 reads/s, 2.21 creates/s, 11.43 writes/s
+Buffer pool hit rate 980 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 256, unzip_LRU len: 0
+I/O sum[761]:cur[0], unzip sum[0]:cur[0]
+--------------
+ROW OPERATIONS
+--------------
+0 queries inside InnoDB, 0 queries in queue
+0 read views open inside InnoDB
+Process ID=12784, Main thread ID=8420, state: sleeping
+Number of rows inserted 1366, updated 0, deleted 0, read 1290
+0.00 inserts/s, 0.00 updates/s, 0.00 deletes/s, 0.00 reads/s
+----------------------------
+END OF INNODB MONITOR OUTPUT
+============================
+ |
++--------+------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT UNIQUE(codigo);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_mercancia FOREIGN KEY (codigo_mercancia)
+    -> REFERENCES mercancia( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_contenedor FOREIGN KEY (codigo_contenedor)
+    -> REFERENCES contenedor( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.producto ADD CONSTRAINT cod_maquinaria FOREIGN KEY (codigo_maquinaria)
+    -> REFERENCES maquinaria( codigo);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT ced_cond FOREIGN KEY (cedula_conductor)
+    -> REFERENCES BD_SQLFINAL.persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.registro ADD CONSTRAINT placa_veh FOREIGN KEY (placa_vehiculo)
+    -> REFERENCES vehiculo(placa);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_contratante FOREIGN KEY (contratante)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_1 FOREIGN KEY (referencia_personal_1)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_personal_2 FOREIGN KEY (referencia_personal_2)
+    ->  REFERENCES persona(numero_identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> ALTER TABLE BD_SQLFINAL.contrato ADD CONSTRAINT
+    -> id_referencia_comercio FOREIGN KEY (referencia_comercio)
+    ->  REFERENCES referencia_comercial(identificacion);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1046 (3D000): No database selected
+mysql> USE DB_SQLFINAL;
+ERROR 1049 (42000): Unknown database 'db_sqlfinal'
+mysql> USE BD_SQLFINAL;
+Database changed
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'M', 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, "M", 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, M, 120);
+ERROR 1054 (42S22): Unknown column 'M' in 'field list'
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, m, 120);
+ERROR 1054 (42S22): Unknown column 'm' in 'field list'
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 'm', 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 2, 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 2, 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, "Acero", 12, 12, 2, 120);
+ERROR 1406 (22001): Data too long for column 'tipo_ambiente' at row 1
+mysql> INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido", 360, 360, NULL, 'M', "Acero", 12, 12, 120);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO puesto_almacenamiento VALUES ("CUADRANTE 1", "A1-001-005-102", NULL, "000010010-Y", 'A');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit, tipo_local ) VALUES ("CUADRANTE 1", "A1-001-005-102", NULL, "000010010-Y", 'A');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+    ->  tipo_local ) VALUES ("CUADRANTE 2", "C12-015-010-015", NULL, "000010010-Y", 'C');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+    ->  tipo_local ) VALUES ("CUADRANTE 3", "M08-025-001-012", NULL, "000010010-Y", 'M');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO persona VALUES ("123454321", "Cedula", "Francesco Bernoulli", 0, "123214", "Cra 32 #2A-99", "342 0423", NULL);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`persona`, CONSTRAINT `relacion_contractual` FOREIGN KEY (`numero_contrato_empleo`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO persona VALUES ("123454321", "Cedula", "Francesco Bernoulli", NULL, "123214", "Cra 32 #2A-99", "342 0423", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO persona VALUES ("234565432", "Cedula", "Arnulio Fernandez", NULL, "1314536", "Cra 12 #1A-49", "315 1353", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO persona VALUES ("345678765", "Cedula" , "Santiago Duque ",  NULL, "134232", "Cra 07 # 13-42", "390 4154", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PERSONA VALUES ("234543211", "Cedula", "Alvaricokeins Uribito", NULL, NULL,"Cra 05 # 12-42","214 1411",NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PERSONA VALUES ("234264234", "cedula","Monito jajay", NULL, NULL, "Cra 07 # 20-80", "230 2323", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID", 12345, "Bayern", "Farmaceutica wikiti","cra 21 #3A-58",4468877);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID",54312, "ALKOSTO", "Almacenes del centro", "cra 26 #3A-40", 4468878);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID",215454, "Carregur", "ALMACENES ÉXITO", "cra 22 #9A-98", 4468879);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID", 1344244, "Carulla", "Almacenes wikiti",  "cra 50 #3B-89", 4468880);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,) VALUES (
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') VALUES (' at line 1
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001, "A1-001-005-102", 1242, NULL, NULL, 0, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `contra_propietario` FOREIGN KEY (`numero_contrato_propietario`) REFERENCES `propietario` (`numero_contrato`))
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", 1242, NULL, NULL, 0, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `contra_propietario` FOREIGN KEY (`numero_contrato_propietario`) REFERENCES `propietario` (`numero_contrato`))
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", NULL, NULL, NULL, 0, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `cod_puesto` FOREIGN KEY (`codigo_puesto_almacenamiento`) REFERENCES `puesto_almacenamiento` (`codigo`))
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", NULL, NULL, NULL, 1, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `id_referencia_personal_1` FOREIGN KEY (`referencia_personal_1`) REFERENCES `persona` (`numero_identificacion`))
+mysql>
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", NULL, NULL, NULL, 1, 123454321, 234565432, 345678765, 12345);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1002,
+    ->  "C12-015-010-015", NULL, NULL, NULL, 2, 234264234, 234565432, 345678765, 54312);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1003,
+    ->  "M08-025-001-012", NULL, NULL, NULL, 3, 234543211, 234565432, 345678765, 215454);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO VEHICULO VALUES ("JFQ300", "Coupe", "Negro", 2020, " chevrolet", NULL,NULL, 2, 34565432
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO VEHICULO VALUES ("JFQ300", "Coupe", "Negro", "2020", " chevrolet", NULL,NULL, 2, 34565432
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO VEHICULO VALUES ("JFQ300", "Coupe", "Negro", '2020', " chevrolet", NULL,NULL, 2, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", 2020, "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '20', "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", "20", "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 0, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("QIK190", "camioneta", "blanco", '2015', "honda", NULL, NULL, 1, 345678765);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 2, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 3, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql>
+
+
+

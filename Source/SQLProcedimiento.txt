@@ -15,10 +15,10 @@ Query OK, 0 rows affected (0.01 sec)
 // Se crea la bodega, falta llave foranea x2
 
 mysql> CREATE TABLE BD_SQLFINAL.bodega ( nit varchar(11) NOT NULL,
-ubicacion varchar(50) NOT NULL, propietario varchar(30) NOT NULL,
+ubicacion varchar(50) NOT NULL, propietario varchar(50) NOT NULL,
+tipo_producto  varchar(25) NOT NULL,
 largo int NOT NULL, ancho int NOT NULL,
-alto int NULL, tipo_ambiente CHAR NOT NULL,
-tipo_producto VARCHAR(15) NOT NULL,
+alto int NULL, tipo_ambiente varchar(1) NOT NULL,
 material_construccion varchar(15) NOT NULL,
 puertas_entrada int NULL, puertas_salida int NULL,
 cantidad_puestos int NULL, PRIMARY KEY (nit));
@@ -28,7 +28,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL AUTO_INCREMENT, localizacion_cuadrante varchar(15) NOT NULL,
 consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
-tipo_local char NOT NULL, PRIMARY KEY (codigo));
+tipo_local varchar(1) NOT NULL, PRIMARY KEY (codigo));
 
 Query OK, 0 rows affected (0.01 sec)
 
@@ -42,8 +42,8 @@ Query OK, 0 rows affected (0.08 sec)
 
 // Se crea la entidad producto (sin llave foranea x5)
 
-mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
-    estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo varchar(1) NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+    estado_poliza varchar(1) NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
     PRIMARY KEY ( codigo) ) ;
 Query OK, 0 rows affected (0.01 sec)
 
@@ -63,14 +63,14 @@ mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL AUTO_INC
 
 // Se crea la entidad temmporal(sin llaves foraneas x6)
 
-CREATE TABLE BD_SQLFINAL.temporal ( numero_contrato int NOT NULL, fecha_inicio date NOT NULL, fecha_finalizacion date NOT NULL, frecuencia_pago char NOT NULL,
+CREATE TABLE BD_SQLFINAL.temporal ( numero_contrato int NOT NULL, fecha_inicio date NOT NULL, fecha_finalizacion date NOT NULL, frecuencia_pago varchar(1) NOT NULL,
     poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL, PRIMARY KEY (numero_contrato));
 
 
 // Se crea la entidad membresia(sin llaves foraneas x6)
 
-mysql> CREATE TABLE BD_SQLFINAL.membresia ( numero_contrato int NOT NULL, seguro_mecanica char NOT NULL, fecha_finalizacion date NOT NULL,
-     frecuencia_pago char NOT NULL, fecha_poliza date NOT NULL, fecha_terminacion_poliza date NOT NULL, PRIMARY KEY ( numero_contrato));
+mysql> CREATE TABLE BD_SQLFINAL.membresia ( numero_contrato int NOT NULL, seguro_mecanica varchar(1) NOT NULL, fecha_finalizacion date NOT NULL,
+     frecuencia_pago varchar(1) NOT NULL, fecha_poliza date NOT NULL, fecha_terminacion_poliza date NOT NULL, PRIMARY KEY ( numero_contrato));
 Query OK, 0 rows affected (0.01 sec)
 
 // Se crea la entidad mercancia (sin llaves foraneas x6)
@@ -81,7 +81,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 // Se crea la entidad contenedor (sin llaves foraneas x6)
 
-mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor char NOT NULL, largo double NOT NULL, ancho double NOT NULL,
+mysql> CREATE TABLE BD_SQLFINAL.contenedor ( codigo int NOT NULL, tipo_contenedor varchar(1) NOT NULL, largo double NOT NULL, ancho double NOT NULL,
      alto double NOT NULL, capacidad_carga double NOT NULL, empresa_responsable varchar(30) NOT NULL, poliza_manejo varchar(15) NOT NULL,
      PRIMARY KEY (codigo));
 Query OK, 0 rows affected (0.02 sec)
@@ -96,7 +96,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 mysql> CREATE TABLE BD_SQLFINAL.registro ( numero_registro int NOT NULL AUTO_INCREMENT, licencia_conductor varchar(15), cedula_conductor int NOT NULL,
      placa_vehiculo varchar(6) NOT NULL, marca_vehiculo varchar(12) NULL, vol_carga double NULL, capacidad_carga double NULL, tipo_vehiculo varchar(10) NOT NULL,
-     local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia char NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
+     local_ingreso varchar(15) NOT NULL, tipo_usuario varchar(10) NOT NULL, retiro_mercancia varchar(1) NULL, tiempo_entrada date NOT NULL, tiempo_salida date NULL,
     codigo_producto int NULL, PRIMARY KEY ( numero_registro));
 Query OK, 0 rows affected (0.01 sec)
 

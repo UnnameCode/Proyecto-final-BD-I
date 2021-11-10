@@ -188,7 +188,13 @@ public class Clase_Gui extends javax.swing.JFrame {
         jTextField14.setEditable(false);
         jTextField14.setText("000010010-Y");
 
+<<<<<<< HEAD
         jLabel3.setText("Poliza");
+=======
+        jLabel1.setText("Puesto Almacenamiento");
+
+        jLabel3.setText("Contrato");
+>>>>>>> e5193cfb2bf9f36a3f22ddb68ae018bc9c97ad66
 
         jLabel4.setText("Numero");
 
@@ -979,6 +985,7 @@ public class Clase_Gui extends javax.swing.JFrame {
 
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
     }//GEN-LAST:event_jTextField20ActionPerformed
 
     private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
@@ -992,6 +999,29 @@ public class Clase_Gui extends javax.swing.JFrame {
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+=======
+           try{
+               
+               
+               
+             PreparedStatement pss = 
+                     cn.prepareStatement
+        ("INSERT INTO puesto_almacenamiento(codigo, localizacion_cuadrante, consecutivo, bodega_nit,contiene, tipo_local) VALUE (?,?,?,?,?,?) ");
+                
+                      
+               pss.setString(1,jTextField1.getText());
+               pss.setString(2,jTextField12.getText());
+               pss.setString(3,jTextField13.getText());
+               pss.setString(4,jTextField14.getText());
+               pss.setString(5,jTextField2.getText());
+               pss.setString(6, (String) jComboBox10.getSelectedItem());
+               pss.executeUpdate();
+        }
+          catch(Exception e){
+             System.out.println(e.getMessage());
+          }
+    }//GEN-LAST:event_jButton1ActionPerformed
+>>>>>>> e5193cfb2bf9f36a3f22ddb68ae018bc9c97ad66
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         if ("Camion".equals(jComboBox4.getSelectedItem().toString())) {
@@ -1112,6 +1142,7 @@ public class Clase_Gui extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
 
+<<<<<<< HEAD
             PuestoAlmacenamiento.Registrar_PuestoAlmacenamiento(conexionmysql, jTextField12.getText() , jTextField13.getText(), jTextField14.getText(), jComboBox10.getSelectedItem().toString().charAt(0));
 
         }
@@ -1121,6 +1152,8 @@ public class Clase_Gui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
+=======
+>>>>>>> e5193cfb2bf9f36a3f22ddb68ae018bc9c97ad66
     /**
      * @param args the command line arguments
      */

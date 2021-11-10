@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `bodega`;
 CREATE TABLE `bodega` (
   `nit` varchar(11) NOT NULL,
   `ubicacion` varchar(50) NOT NULL,
-  `propietario` varchar(30) NOT NULL,
+  `propietario` varchar(50) NOT NULL,
+  `tipo_producto` varchar(25) NOT NULL,
   `largo` int(11) NOT NULL,
   `ancho` int(11) NOT NULL,
   `alto` int(11) DEFAULT NULL,
-  `tipo_ambiente` char(1) NOT NULL,
-  `tipo_producto` varchar(15) NOT NULL,
+  `tipo_ambiente` varchar(1) NOT NULL,
   `material_construccion` varchar(15) NOT NULL,
   `puertas_entrada` int(11) DEFAULT NULL,
   `puertas_salida` int(11) DEFAULT NULL,
@@ -57,7 +57,7 @@ DROP TABLE IF EXISTS `contenedor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contenedor` (
   `codigo` int(11) NOT NULL,
-  `tipo_contenedor` char(1) NOT NULL,
+  `tipo_contenedor` varchar(1) NOT NULL,
   `largo` double NOT NULL,
   `ancho` double NOT NULL,
   `alto` double NOT NULL,
@@ -161,9 +161,9 @@ DROP TABLE IF EXISTS `membresia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `membresia` (
   `numero_contrato` int(11) NOT NULL,
-  `seguro_mecanica` char(1) NOT NULL,
+  `seguro_mecanica` varchar(1) NOT NULL,
   `fecha_finalizacion` date NOT NULL,
-  `frecuencia_pago` char(1) NOT NULL,
+  `frecuencia_pago` varchar(1) NOT NULL,
   `fecha_poliza` date NOT NULL,
   `fecha_terminacion_poliza` date NOT NULL,
   PRIMARY KEY (`numero_contrato`),
@@ -250,10 +250,10 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
   `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` char(1) NOT NULL,
+  `tipo` varchar(1) NOT NULL,
   `valor_asegurado` double NOT NULL,
   `descripcion` varchar(140) NOT NULL,
-  `estado_poliza` char(1) NOT NULL,
+  `estado_poliza` varchar(1) NOT NULL,
   `codigo_mercancia` int(11) DEFAULT NULL,
   `codigo_contenedor` int(11) DEFAULT NULL,
   `codigo_maquinaria` int(11) DEFAULT NULL,
@@ -316,7 +316,7 @@ CREATE TABLE `puesto_almacenamiento` (
   `consecutivo` varchar(32) NOT NULL,
   `contiene` int(11) DEFAULT NULL,
   `bodega_nit` varchar(11) NOT NULL,
-  `tipo_local` char(1) NOT NULL,
+  `tipo_local` varchar(1) NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `codigo` (`codigo`),
   KEY `puesto_recursivo` (`contiene`),
@@ -380,7 +380,7 @@ CREATE TABLE `registro` (
   `tipo_vehiculo` varchar(10) NOT NULL,
   `local_ingreso` varchar(15) NOT NULL,
   `tipo_usuario` varchar(10) NOT NULL,
-  `retiro_mercancia` char(1) DEFAULT NULL,
+  `retiro_mercancia` varchar(1) DEFAULT NULL,
   `tiempo_entrada` date NOT NULL,
   `tiempo_salida` date DEFAULT NULL,
   `codigo_producto` int(11) DEFAULT NULL,
@@ -412,7 +412,7 @@ CREATE TABLE `temporal` (
   `numero_contrato` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_finalizacion` date NOT NULL,
-  `frecuencia_pago` char(1) NOT NULL,
+  `frecuencia_pago` varchar(1) NOT NULL,
   `poliza_amparo` int(11) NOT NULL,
   `local_asignado` varchar(15) NOT NULL,
   PRIMARY KEY (`numero_contrato`),
@@ -473,4 +473,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-09 20:01:15
+-- Dump completed on 2021-11-09 22:22:11
