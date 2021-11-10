@@ -35,7 +35,7 @@ Query OK, 0 rows affected (0.01 sec)
 // Se crea la entidad vehiculo (sin llave foranea x4)
 
 mysql> CREATE TABLE BD_SQLFINAL.vehiculo ( placa varchar(6) NOT NULL, tipo varchar(10) NOT NULL, color varchar(10) NOT NULL,
-    modelo YEAR(4) NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
+    modelo int NOT NULL, marca varchar(12) NULL, volumen double NULL, capacidad double NULL, numero_contrato int NOT NULL,
     identificacion_conductor int NOT NULL, PRIMARY KEY ( placa ));
 Query OK, 0 rows affected (0.08 sec)
 
@@ -88,7 +88,7 @@ Query OK, 0 rows affected (0.02 sec)
 
 // Se crea la entidad maquinaria (sin llaves foraneas x6)
 
-mysql> CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo YEAR(4) NOT NULL, valor_nominal double NOT NULL,
+mysql> CREATE TABLE BD_SQLFINAL.maquinaria ( codigo int NOT NULL, marca varchar(15) NOT NULL, peso double NOT NULL, modelo int NOT NULL, valor_nominal double NOT NULL,
     PRIMARY KEY (codigo));
 Query OK, 0 rows affected (0.01 sec)
 
