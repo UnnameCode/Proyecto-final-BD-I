@@ -1,13 +1,15 @@
--- MySQL dump 10.13  Distrib 5.7.36, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `bd_projectfinal` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bd_projectfinal`;
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: BD_SQLFINAL
+-- Host: localhost    Database: bd_projectfinal
 -- ------------------------------------------------------
--- Server version	5.7.36-log
+-- Server version	5.7.35-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +23,7 @@
 
 DROP TABLE IF EXISTS `bodega`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bodega` (
   `nit` varchar(11) NOT NULL,
   `ubicacion` varchar(50) NOT NULL,
@@ -55,7 +57,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `contenedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contenedor` (
   `codigo` int(11) NOT NULL,
   `tipo_contenedor` varchar(1) NOT NULL,
@@ -75,6 +77,7 @@ CREATE TABLE `contenedor` (
 
 LOCK TABLES `contenedor` WRITE;
 /*!40000 ALTER TABLE `contenedor` DISABLE KEYS */;
+INSERT INTO `contenedor` VALUES (123,'E',6.06,2.44,2.59,28.13,'contenedores de occidente','8 meses'),(124,'G',12.19,2.44,2.59,32.14,'patio contenedores CCL','1 año'),(125,'E',6.06,2.44,2.59,28.13,'contenedores de occidente','1 año 1 mes'),(126,'O',5,3,2,5,'contenedores de occidente','11 meses');
 /*!40000 ALTER TABLE `contenedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +87,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `contrato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contrato` (
   `numero_contrato` int(11) NOT NULL AUTO_INCREMENT,
   `poliza_amparo` int(11) NOT NULL,
@@ -124,7 +127,7 @@ CREATE TABLE `contrato` (
 
 LOCK TABLES `contrato` WRITE;
 /*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
-INSERT INTO `contrato` VALUES (4,1001,'A1-001-005-102',NULL,NULL,NULL,1,123454321,234565432,345678765,12345),(5,1003,'M08-025-001-012',NULL,NULL,NULL,3,234543211,234565432,345678765,215454),(6,1002,'C12-015-010-015',NULL,NULL,NULL,2,234264234,234565432,345678765,54312);
+INSERT INTO `contrato` VALUES (4,1001,'A1-001-005-102',NULL,NULL,3244,1,123454321,234565432,345678765,12345),(5,1003,'M08-025-001-012',NULL,2243,NULL,3,234543211,234565432,345678765,215454),(6,1002,'C12-015-010-015',1242,NULL,NULL,2,234264234,234565432,345678765,54312);
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +137,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `maquinaria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `maquinaria` (
   `codigo` int(11) NOT NULL,
   `marca` varchar(15) NOT NULL,
@@ -151,6 +154,7 @@ CREATE TABLE `maquinaria` (
 
 LOCK TABLES `maquinaria` WRITE;
 /*!40000 ALTER TABLE `maquinaria` DISABLE KEYS */;
+INSERT INTO `maquinaria` VALUES (1,'caterpillar',30000,2013,35000000),(2,'caterpillar',45000,2014,50000000),(3,'john deere',20000,2017,65000000);
 /*!40000 ALTER TABLE `maquinaria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +164,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `membresia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `membresia` (
   `numero_contrato` int(11) NOT NULL,
   `seguro_mecanica` varchar(1) NOT NULL,
@@ -179,6 +183,7 @@ CREATE TABLE `membresia` (
 
 LOCK TABLES `membresia` WRITE;
 /*!40000 ALTER TABLE `membresia` DISABLE KEYS */;
+INSERT INTO `membresia` VALUES (2243,'T','2022-08-20','m','2021-11-08','2022-05-08');
 /*!40000 ALTER TABLE `membresia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +193,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `mercancia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mercancia` (
   `codigo` int(11) NOT NULL,
   `fragilidad` double NOT NULL,
@@ -208,6 +213,7 @@ CREATE TABLE `mercancia` (
 
 LOCK TABLES `mercancia` WRITE;
 /*!40000 ALTER TABLE `mercancia` DISABLE KEYS */;
+INSERT INTO `mercancia` VALUES (10,8,30000,1200,'2022-02-10','2021-02-10',1250000,12345);
 /*!40000 ALTER TABLE `mercancia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +223,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `persona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `persona` (
   `numero_identificacion` int(11) NOT NULL,
   `tipo` varchar(15) NOT NULL,
@@ -250,7 +256,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `producto` (
   `codigo` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(1) NOT NULL,
@@ -269,7 +275,7 @@ CREATE TABLE `producto` (
   CONSTRAINT `cod_contenedor` FOREIGN KEY (`codigo_contenedor`) REFERENCES `contenedor` (`codigo`),
   CONSTRAINT `cod_maquinaria` FOREIGN KEY (`codigo_maquinaria`) REFERENCES `maquinaria` (`codigo`),
   CONSTRAINT `cod_mercancia` FOREIGN KEY (`codigo_mercancia`) REFERENCES `mercancia` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,6 +284,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,'M',30000000,'MAQUINA CATERPILLAR ','T',NULL,NULL,1,'MAQ321'),(2,'M',5000000,'MAQUINA CATERPILLAR ','T',NULL,NULL,2,'MAQ802'),(3,'M',2500000,'MAQUINA JOHN DEERE','T',NULL,NULL,3,'QJK12'),(4,'C',10000000,'CONTENEDOR ESTANDAR','T',NULL,123,NULL,'YTP43'),(7,'C',15000000,'CONTENEDOR GRANDE','T',NULL,124,NULL,'RW13'),(8,'C',10000000,'CONTENEDOR ESTANDAR','T',NULL,125,NULL,'TYU12'),(9,'C',4000000,'CONTENEDOR OTRO','T',NULL,126,NULL,'OPQ12'),(10,'E',12000000,'PRODUCTOS BELLEZA','T',10,NULL,NULL,'QWE123');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +294,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `propietario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `propietario` (
   `numero_contrato` int(11) NOT NULL,
   `tipo_persona` varchar(9) NOT NULL,
@@ -303,6 +310,7 @@ CREATE TABLE `propietario` (
 
 LOCK TABLES `propietario` WRITE;
 /*!40000 ALTER TABLE `propietario` DISABLE KEYS */;
+INSERT INTO `propietario` VALUES (1242,'natural',' guarda cosas varias');
 /*!40000 ALTER TABLE `propietario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +320,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `puesto_almacenamiento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `puesto_almacenamiento` (
   `codigo` int(11) NOT NULL AUTO_INCREMENT,
   `localizacion_cuadrante` varchar(15) NOT NULL,
@@ -345,7 +353,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `referencia_comercial`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `referencia_comercial` (
   `tipo_identificacion` varchar(15) NOT NULL,
   `identificacion` int(11) NOT NULL,
@@ -373,7 +381,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `registro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `registro` (
   `numero_registro` int(11) NOT NULL AUTO_INCREMENT,
   `licencia_conductor` varchar(15) DEFAULT NULL,
@@ -394,7 +402,7 @@ CREATE TABLE `registro` (
   KEY `placa_veh` (`placa_vehiculo`),
   CONSTRAINT `ced_cond` FOREIGN KEY (`cedula_conductor`) REFERENCES `persona` (`numero_identificacion`),
   CONSTRAINT `placa_veh` FOREIGN KEY (`placa_vehiculo`) REFERENCES `vehiculo` (`placa`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -403,6 +411,7 @@ CREATE TABLE `registro` (
 
 LOCK TABLES `registro` WRITE;
 /*!40000 ALTER TABLE `registro` DISABLE KEYS */;
+INSERT INTO `registro` VALUES (1,'1314536',234565432,'JFQ300','Toyota',18679,20000,'Camioneta','A1-001-005-102 ','conductor','N','2021-11-21','2021-11-22',1);
 /*!40000 ALTER TABLE `registro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,7 +421,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `temporal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `temporal` (
   `numero_contrato` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
@@ -431,6 +440,7 @@ CREATE TABLE `temporal` (
 
 LOCK TABLES `temporal` WRITE;
 /*!40000 ALTER TABLE `temporal` DISABLE KEYS */;
+INSERT INTO `temporal` VALUES (3244,'2021-10-20','2022-01-20','M',23572,'A1-001-005-102 ');
 /*!40000 ALTER TABLE `temporal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,7 +450,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `vehiculo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vehiculo` (
   `placa` varchar(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
@@ -466,6 +476,7 @@ CREATE TABLE `vehiculo` (
 
 LOCK TABLES `vehiculo` WRITE;
 /*!40000 ALTER TABLE `vehiculo` DISABLE KEYS */;
+INSERT INTO `vehiculo` VALUES ('CPZ280','camioneta','azul',2012,'toyota',NULL,NULL,5,234565432),('JFQ300','Coupe','Negro',2020,'chevrolet',NULL,NULL,5,234565432),('QIK190','camioneta','blanco',2015,'honda',NULL,NULL,4,345678765);
 /*!40000 ALTER TABLE `vehiculo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -478,4 +489,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-10  7:56:22
+-- Dump completed on 2021-11-10 11:57:56
