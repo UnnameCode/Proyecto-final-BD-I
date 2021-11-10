@@ -888,6 +888,8 @@ public class Clase_Gui extends javax.swing.JFrame {
         // TODO add your handling code here:
            try{
                
+               
+               
              PreparedStatement pss = 
                      cn.prepareStatement
         ("INSERT INTO puesto_almacenamiento(codigo, localizacion_cuadrante, consecutivo, bodega_nit,contiene, tipo_local) VALUE (?,?,?,?,?,?) ");
