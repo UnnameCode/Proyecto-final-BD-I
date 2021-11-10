@@ -17,8 +17,45 @@ public class Contrato {
         
     }
     
-    // metodos para contratos
     
+    // metodos para busquedas pedidas
+    public static String Buscar_contrato(Statement mysql, int numContrato) throws SQLException{
+        
+        String returnValue = "";
+        String comando = "SELECT * FROM contrato WHERE ( contrato.numero_contrato ="+String.valueOf(numContrato)+");";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "Falta por implementar :u";
+        
+        return returnValue;
+    }
+    
+    public static String Mostrar_contratosActivos(Statement mysql){
+        String returnValue = "";
+        String comando = "";
+        
+        // pedir fecha actual con DATE y buscar segun contratos con fecha posterior (los contratos temp y membresia son los que vencen)
+        
+        
+        return returnValue;
+              
+        
+        
+    }
+    
+    public static String Contratos_proximosAVecencer(Statement mysql){
+        String returnValue = "";
+        
+        // devolver todos los contratos que les quede un mes o menos antes de que venzan
+        
+        return returnValue;
+    }
+    
+    
+    // metodos para contratos
     public static void Registrar_Contrato(Statement mysql, int poliza, String localAsignado, int codigoPuestoAlmacenamiento, int contratante) throws SQLException{
         String comando = "INSERT INTO contrato ( poliza_amparo, local_asignado, codigo_puesto_almacenamiento, contratante) VALUES ( "+
                 String.valueOf(poliza) + ", " + localAsignado + ", " + String.valueOf(codigoPuestoAlmacenamiento) + ", " + contratante + ");";

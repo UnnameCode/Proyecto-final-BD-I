@@ -20,6 +20,20 @@ public class PuestoAlmacenamiento {
         
     }
     
+    // metodos pedidos
+    
+    
+    public static String Consultar_PuestosAlmacenamiento(Statement mysql) throws SQLException{
+        String returnValue = "Procesar entrada antes";
+        String comando = "SELECT * FROM puesto_almacenamiento" ; 
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        return returnValue;
+    }
+    
+    
+    
     // metodo para puesto almacenamiento
     
     public static void Registrar_PuestoAlmacenamiento(Statement mysql, String localizacionCuadrante, String consecutivo, String nitBodega, char tipoLocal) throws SQLException{
