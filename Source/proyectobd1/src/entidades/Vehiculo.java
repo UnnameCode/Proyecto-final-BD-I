@@ -17,6 +17,24 @@ public class Vehiculo {
         
     }
     
+    
+    // Queries 
+    public static String Consultar_VehiculosAutorizados(Statement mysql, int numeroContrato){
+        String returnValue = "";
+        String querieCommand = "";
+        
+        
+        return returnValue;
+    }
+    
+    public static String Consultar_VehiculosAutorizadosCliente(Statement mysql, String numeroIdentificacion){
+        String returnValue = "";
+        String querieCommand = "";
+        
+        return returnValue;
+    }
+    
+    
     // metodos para entidad vehiculo
     
     public static void Registrar_vehiculo(Statement mysql, String placa, String tipo, String color, int modelo, int numero_contrato, int identificacion_conductor) throws SQLException{

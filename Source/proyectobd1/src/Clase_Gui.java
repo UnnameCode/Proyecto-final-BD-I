@@ -894,9 +894,24 @@ public class Clase_Gui extends javax.swing.JFrame {
         // TODO add your handling code here:
            try{
                
+<<<<<<< HEAD
              PuestoAlmacenamiento.Registrar_PuestoAlmacenamiento(mysql, jTextField1.getText() , jTextField12.getText(), jTextField13.getText(),jComboBox2.getSelectedItem().toString() );
              PuestoAlmacenamiento.Registrar_PuestoAlmacenamiento_dentro(mysql, jTextField2.getText());
              
+=======
+             PreparedStatement pss = 
+                     cn.prepareStatement
+        ("INSERT INTO puesto_almacenamiento(codigo, localizacion_cuadrante, consecutivo, bodega_nit,contiene, tipo_local) VALUE (?,?,?,?,?,?) ");
+                
+                      
+               pss.setString(1,jTextField1.getText());
+               pss.setString(2,jTextField12.getText());
+               pss.setString(3,jTextField13.getText());
+               pss.setString(4,jTextField14.getText());
+               pss.setString(5,jTextField2.getText());
+               pss.setString(6, (String) jComboBox10.getSelectedItem());
+               pss.executeUpdate();
+>>>>>>> 9b24e2a322287cdc96144da0d05f51f9a24c6908
         }
           catch(Exception e){
              System.out.println(e.getMessage());
