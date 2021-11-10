@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `bodega`;
 CREATE TABLE `bodega` (
   `nit` varchar(11) NOT NULL,
   `ubicacion` varchar(50) NOT NULL,
-  `propietario` varchar(30) NOT NULL,
+  `propietario` varchar(50) NOT NULL,
+  `tipo_producto` varchar(25) NOT NULL,
   `largo` int(11) NOT NULL,
   `ancho` int(11) NOT NULL,
   `alto` int(11) DEFAULT NULL,
-  `tipo_ambiente` char(1) NOT NULL,
-  `tipo_producto` varchar(15) NOT NULL,
+  `tipo_ambiente` varchar(1) NOT NULL,
   `material_construccion` varchar(15) NOT NULL,
   `puertas_entrada` int(11) DEFAULT NULL,
   `puertas_salida` int(11) DEFAULT NULL,
@@ -45,6 +45,7 @@ CREATE TABLE `bodega` (
 
 LOCK TABLES `bodega` WRITE;
 /*!40000 ALTER TABLE `bodega` DISABLE KEYS */;
+INSERT INTO `bodega` VALUES ('000010010-Y','Costa pacifica valle del cauca','S.portuaria Occidente','mixto-no definido',360,360,NULL,'M','Acero',12,12,120);
 /*!40000 ALTER TABLE `bodega` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +58,7 @@ DROP TABLE IF EXISTS `contenedor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contenedor` (
   `codigo` int(11) NOT NULL,
-  `tipo_contenedor` char(1) NOT NULL,
+  `tipo_contenedor` varchar(1) NOT NULL,
   `largo` double NOT NULL,
   `ancho` double NOT NULL,
   `alto` double NOT NULL,
@@ -114,7 +115,7 @@ CREATE TABLE `contrato` (
   CONSTRAINT `id_referencia_comercio` FOREIGN KEY (`referencia_comercio`) REFERENCES `referencia_comercial` (`identificacion`),
   CONSTRAINT `id_referencia_personal_1` FOREIGN KEY (`referencia_personal_1`) REFERENCES `persona` (`numero_identificacion`),
   CONSTRAINT `id_referencia_personal_2` FOREIGN KEY (`referencia_personal_2`) REFERENCES `persona` (`numero_identificacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +124,7 @@ CREATE TABLE `contrato` (
 
 LOCK TABLES `contrato` WRITE;
 /*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
+INSERT INTO `contrato` VALUES (4,1001,'A1-001-005-102',NULL,NULL,NULL,1,123454321,234565432,345678765,12345),(5,1003,'M08-025-001-012',NULL,NULL,NULL,3,234543211,234565432,345678765,215454),(6,1002,'C12-015-010-015',NULL,NULL,NULL,2,234264234,234565432,345678765,54312);
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +139,7 @@ CREATE TABLE `maquinaria` (
   `codigo` int(11) NOT NULL,
   `marca` varchar(15) NOT NULL,
   `peso` double NOT NULL,
-  `modelo` year(4) NOT NULL,
+  `modelo` int(11) NOT NULL,
   `valor_nominal` double NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -161,9 +163,9 @@ DROP TABLE IF EXISTS `membresia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `membresia` (
   `numero_contrato` int(11) NOT NULL,
-  `seguro_mecanica` char(1) NOT NULL,
+  `seguro_mecanica` varchar(1) NOT NULL,
   `fecha_finalizacion` date NOT NULL,
-  `frecuencia_pago` char(1) NOT NULL,
+  `frecuencia_pago` varchar(1) NOT NULL,
   `fecha_poliza` date NOT NULL,
   `fecha_terminacion_poliza` date NOT NULL,
   PRIMARY KEY (`numero_contrato`),
@@ -238,6 +240,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` VALUES (123454321,'Cedula','Francesco Bernoulli',NULL,'123214','Cra 32 #2A-99','342 0423',NULL),(234264234,'cedula','Monito jajay',NULL,NULL,'Cra 07 # 20-80','230 2323',NULL),(234543211,'Cedula','Alvaricokeins Uribito',NULL,NULL,'Cra 05 # 12-42','214 1411',NULL),(234565432,'Cedula','Arnulio Fernandez',NULL,'1314536','Cra 12 #1A-49','315 1353',NULL),(345678765,'Cedula','Santiago Duque ',NULL,'134232','Cra 07 # 13-42','390 4154',NULL);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,10 +253,10 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
   `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` char(1) NOT NULL,
+  `tipo` varchar(1) NOT NULL,
   `valor_asegurado` double NOT NULL,
   `descripcion` varchar(140) NOT NULL,
-  `estado_poliza` char(1) NOT NULL,
+  `estado_poliza` varchar(1) NOT NULL,
   `codigo_mercancia` int(11) DEFAULT NULL,
   `codigo_contenedor` int(11) DEFAULT NULL,
   `codigo_maquinaria` int(11) DEFAULT NULL,
@@ -316,14 +319,14 @@ CREATE TABLE `puesto_almacenamiento` (
   `consecutivo` varchar(32) NOT NULL,
   `contiene` int(11) DEFAULT NULL,
   `bodega_nit` varchar(11) NOT NULL,
-  `tipo_local` char(1) NOT NULL,
+  `tipo_local` varchar(1) NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `codigo` (`codigo`),
   KEY `puesto_recursivo` (`contiene`),
   KEY `numero_nit` (`bodega_nit`),
   CONSTRAINT `numero_nit` FOREIGN KEY (`bodega_nit`) REFERENCES `bodega` (`nit`),
   CONSTRAINT `puesto_recursivo` FOREIGN KEY (`contiene`) REFERENCES `puesto_almacenamiento` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,6 +335,7 @@ CREATE TABLE `puesto_almacenamiento` (
 
 LOCK TABLES `puesto_almacenamiento` WRITE;
 /*!40000 ALTER TABLE `puesto_almacenamiento` DISABLE KEYS */;
+INSERT INTO `puesto_almacenamiento` VALUES (1,'CUADRANTE 1','A1-001-005-102',NULL,'000010010-Y','A'),(2,'CUADRANTE 2','C12-015-010-015',NULL,'000010010-Y','C'),(3,'CUADRANTE 3','M08-025-001-012',NULL,'000010010-Y','M');
 /*!40000 ALTER TABLE `puesto_almacenamiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,6 +363,7 @@ CREATE TABLE `referencia_comercial` (
 
 LOCK TABLES `referencia_comercial` WRITE;
 /*!40000 ALTER TABLE `referencia_comercial` DISABLE KEYS */;
+INSERT INTO `referencia_comercial` VALUES ('UID',12345,'Bayern','Farmaceutica wikiti','cra 21 #3A-58',4468877),('UID',54312,'ALKOSTO','Almacenes del centro','cra 26 #3A-40',4468878),('UID',215454,'Carregur','ALMACENES ÉXITO','cra 22 #9A-98',4468879),('UID',1344244,'Carulla','Almacenes wikiti','cra 50 #3B-89',4468880);
 /*!40000 ALTER TABLE `referencia_comercial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,7 +385,7 @@ CREATE TABLE `registro` (
   `tipo_vehiculo` varchar(10) NOT NULL,
   `local_ingreso` varchar(15) NOT NULL,
   `tipo_usuario` varchar(10) NOT NULL,
-  `retiro_mercancia` char(1) DEFAULT NULL,
+  `retiro_mercancia` varchar(1) DEFAULT NULL,
   `tiempo_entrada` date NOT NULL,
   `tiempo_salida` date DEFAULT NULL,
   `codigo_producto` int(11) DEFAULT NULL,
@@ -412,7 +417,7 @@ CREATE TABLE `temporal` (
   `numero_contrato` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_finalizacion` date NOT NULL,
-  `frecuencia_pago` char(1) NOT NULL,
+  `frecuencia_pago` varchar(1) NOT NULL,
   `poliza_amparo` int(11) NOT NULL,
   `local_asignado` varchar(15) NOT NULL,
   PRIMARY KEY (`numero_contrato`),
@@ -440,7 +445,7 @@ CREATE TABLE `vehiculo` (
   `placa` varchar(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   `color` varchar(10) NOT NULL,
-  `modelo` year(4) NOT NULL,
+  `modelo` int(11) NOT NULL,
   `marca` varchar(12) DEFAULT NULL,
   `volumen` double DEFAULT NULL,
   `capacidad` double DEFAULT NULL,
@@ -473,4 +478,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-09 20:01:15
+-- Dump completed on 2021-11-10  7:56:22

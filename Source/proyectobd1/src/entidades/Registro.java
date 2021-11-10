@@ -45,8 +45,8 @@ public class Registro {
     // metodos para entidad registro
     public static void Registrar_ingreso(Statement mysql, String licenciaConductor, int cedulaConductor, String placaVehiculo, String tipoVehiculo, String localIngreso, String tipoUsuario, String date) throws SQLException{
         String comando = "INSERT INTO registro ( licencia_conductor, cedula_conductor,  placa_vehiculo, tipo_vehiculo,"
-                + "local_ingreso, tipo_usuario, tiempo_entrada ) VALUES (" + licenciaConductor +","+ String.valueOf(cedulaConductor)+", "
-                + placaVehiculo + ", " + tipoVehiculo + ", " + localIngreso + ", " + tipoUsuario + ", " + date + ");";
+                + "local_ingreso, tipo_usuario, tiempo_entrada ) VALUES (\"" + licenciaConductor +"\","+ String.valueOf(cedulaConductor)+", \""
+                + placaVehiculo + "\" , \"" + tipoVehiculo + "\" , \"" + localIngreso + "\", \"" + tipoUsuario + "\", \'" + date + "\');";
         
         
         // todo verificar que el vehiculo este autorizado (verificar el num de contrato asociado a la placa)
@@ -54,9 +54,10 @@ public class Registro {
         mysql.execute(comando);
     }
     
+    //verificar si date se pasa entre 'date' o "date"
     public static void Registrar_salida(Statement mysql, String placa, String date) throws SQLException{
-        String comando = "UPDATE registro set tiempo_salida = " + date+
-                " WHERE (vehiculo.placa = " + placa + " AND (vehiculo.tiempo_salida IS NULL)  );";
+        String comando = "UPDATE registro set tiempo_salida = \'" + date+
+                "\' WHERE (vehiculo.placa = \"" + placa + "\" AND (vehiculo.tiempo_salida IS NULL)  );";
         
          // todo verificar que el vehiculo este autorizado (verificar el num de contrato asociado a la placa) ignorar
         

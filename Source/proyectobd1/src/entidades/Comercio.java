@@ -23,8 +23,8 @@ public class Comercio {
     
     public static void Registrar_ReferenciaComercial(Statement mysql, String tipoIdentificacion, int identificacion, String nombreCompleto, String razonSocial, String direccion, int telefonoOficina) throws SQLException{
         String comando = "INSERT INTO referencia_comercial ( tipo_identificacion, identificacion, nombre_completo, razon_social"+
-                ", direccion, telefono_oficina ) VALUES ( " + tipoIdentificacion + ", " + String.valueOf(identificacion) + ","+
-                nombreCompleto + ", " + razonSocial + ", "+ direccion + ", " + String.valueOf(telefonoOficina) + ");";
+                ", direccion, telefono_oficina ) VALUES ( \"" + tipoIdentificacion + "\", " + String.valueOf(identificacion) + ", \""+
+                nombreCompleto + "\", \"" + razonSocial + "\", \""+ direccion + "\", " + String.valueOf(telefonoOficina) + ");";
         
         mysql.execute(comando);
     }

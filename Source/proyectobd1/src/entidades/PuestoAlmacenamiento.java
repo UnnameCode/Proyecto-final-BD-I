@@ -37,8 +37,8 @@ public class PuestoAlmacenamiento {
     // metodo para puesto almacenamiento
     
     public static void Registrar_PuestoAlmacenamiento(Statement mysql, String localizacionCuadrante, String consecutivo, String nitBodega, char tipoLocal) throws SQLException{
-        String comando = "INSERT INTO puesto_almacenamiento ( localizacion_cuadrante, consecutivo, bodega_nit, tipo_local) VALUES (  " +
-                localizacionCuadrante +", " + consecutivo + ", " + nitBodega + ", " + tipoLocal + ");";
+        String comando = "INSERT INTO puesto_almacenamiento ( localizacion_cuadrante, consecutivo, bodega_nit, tipo_local) VALUES ( \""  +
+                localizacionCuadrante +"\", \"" + consecutivo + "\", \"" + nitBodega + "\", \'" + tipoLocal + "\');";
         
         mysql.execute(comando);
     }

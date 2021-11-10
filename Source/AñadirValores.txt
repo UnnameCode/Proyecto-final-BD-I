@@ -1,0 +1,218 @@
+como ingresar los datos
+
+Crear un puesto de almacenamiento:
+
+- se requiere bodega (segun entiendo el enunciado solo hay una bodega, entonces seria esa)
+
+
+Registrar un contrato:
+
+- Se requiere crear previamente las personas que son contratantes y referenciales
+- Se requiere crear previamente la referencia con el comercio
+- Se requiere crear previamente el puesto de almacenamiento a asignar
+
+- Luego definir el tipo de contrato ( temporal, membresia o propietario)
+
+Registrar persona:
+
+- Si la persona va a ser empleada, se requiere previamente crear el contrato
+
+Registrar vehiculo:
+
+- se requiere previamente crear el contrato al que estara asociado
+- se requiere crear previamente el conductor identificado
+
+Registrar producto:
+
+- requiere registrar previamente el vehiculo que ¿ lo entrega ?
+- para producto de tipo mercancia se requiere crear previamente la persona que lo va a 
+
+Crear registro:
+
+- se requiere previamente al conductor registrado, asi como el vehiculo que ingresa
+- en caso de retirar producto, este debe existir
+
+
+INSERT INTO bodega VALUES ("000010010-Y", "Costa pacifica valle del cauca", "S.portuaria Occidente","mixto-no definido",
+360, 360, NULL, 'M', "Acero", 12, 12, 120);
+
+Query OK, 1 row affected (0.00 sec)
+
+// puestos 
+
+ INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit, tipo_local ) VALUES ("CUADRANTE 1", "A1-001-005-102", NULL, "000010010-Y", 'A');
+Query OK, 1 row affected (0.01 sec)
+
+INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+ tipo_local ) VALUES ("CUADRANTE 2", "C12-015-010-015", NULL, "000010010-Y", 'C');
+
+INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+ tipo_local ) VALUES ("CUADRANTE 3", "M08-025-001-012", NULL, "000010010-Y", 'M');
+
+// insertar personas prueba
+
+
+INSERT INTO persona VALUES ("123454321", "Cedula", "Francesco Bernoulli", NULL, "123214", "Cra 32 #2A-99", "342 0423", NULL);
+
+INSERT INTO persona VALUES ("234565432", "Cedula", "Arnulio Fernandez", NULL, "1314536", "Cra 12 #1A-49", "315 1353", NULL);
+
+INSERT INTO persona VALUES ("345678765", "Cedula" , "Santiago Duque ",  NULL, "134232", "Cra 07 # 13-42", "390 4154", NULL);
+
+
+INSERT INTO PERSONA VALUES ("234543211", "Cedula", "Alvaricokeins Uribito", NULL, NULL,"Cra 05 # 12-42","214 1411",NULL);
+
+
+INSERT INTO PERSONA VALUES ("234264234", "cedula","Monito jajay", NULL, NULL, "Cra 07 # 20-80", "230 2323", NULL);
+
+
+
+// insertar referencia comercial
+
+
+INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID", 12345, "Bayern", "Farmaceutica wikiti","cra 21 #3A-58",4468877);
+
+INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID",54312, "ALKOSTO", "Almacenes del centro", "cra 26 #3A-40", 4468878);
+
+INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID",215454, "Carregur", "ALMACENES ÉXITO", "cra 22 #9A-98", 4468879);
+
+INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID", 1344244, "Carulla", "Almacenes wikiti",  "cra 50 #3B-89", 4468880);
+
+
+
+
+
+// insertar contratos
+
+ 
+
+INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+ "A1-001-005-102", NULL, NULL, NULL, 1, 123454321, 234565432, 345678765, 12345);
+
+INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1002,
+"C12-015-010-015", NULL,NULL, NULL, 2, 234264234, 234565432, 345678765, 54312);
+
+INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1003,
+ "M08-025-001-012", NULL, NULL, NULL, 3, 234543211, 234565432, 345678765, 215454);
+
+
+
+// insertar vehiculos
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+mysql> INSERT INTO puesto_almacenamiento (localizacion_cuadrante, consecutivo, contiene, bodega_nit,
+    ->  tipo_local ) VALUES ("CUADRANTE 3", "M08-025-001-012", NULL, "000010010-Y", 'M');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO persona VALUES ("123454321", "Cedula", "Francesco Bernoulli", 0, "123214", "Cra 32 #2A-99", "342 0423", NULL);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`persona`, CONSTRAINT `relacion_contractual` FOREIGN KEY (`numero_contrato_empleo`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO persona VALUES ("123454321", "Cedula", "Francesco Bernoulli", NULL, "123214", "Cra 32 #2A-99", "342 0423", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO persona VALUES ("234565432", "Cedula", "Arnulio Fernandez", NULL, "1314536", "Cra 12 #1A-49", "315 1353", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO persona VALUES ("345678765", "Cedula" , "Santiago Duque ",  NULL, "134232", "Cra 07 # 13-42", "390 4154", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PERSONA VALUES ("234543211", "Cedula", "Alvaricokeins Uribito", NULL, NULL,"Cra 05 # 12-42","214 1411",NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PERSONA VALUES ("234264234", "cedula","Monito jajay", NULL, NULL, "Cra 07 # 20-80", "230 2323", NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID", 12345, "Bayern", "Farmaceutica wikiti","cra 21 #3A-58",4468877);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID",54312, "ALKOSTO", "Almacenes del centro", "cra 26 #3A-40", 4468878);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID",215454, "Carregur", "ALMACENES ÉXITO", "cra 22 #9A-98", 4468879);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO REFERENCIA_COMERCIAL VALUES ("UID", 1344244, "Carulla", "Almacenes wikiti",  "cra 50 #3B-89", 4468880);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,) VALUES (
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') VALUES (' at line 1
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001, "A1-001-005-102", 1242, NULL, NULL, 0, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `contra_propietario` FOREIGN KEY (`numero_contrato_propietario`) REFERENCES `propietario` (`numero_contrato`))
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", 1242, NULL, NULL, 0, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `contra_propietario` FOREIGN KEY (`numero_contrato_propietario`) REFERENCES `propietario` (`numero_contrato`))
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", NULL, NULL, NULL, 0, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `cod_puesto` FOREIGN KEY (`codigo_puesto_almacenamiento`) REFERENCES `puesto_almacenamiento` (`codigo`))
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", NULL, NULL, NULL, 1, 123454321, 4478877, 4448123, 456758);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`contrato`, CONSTRAINT `id_referencia_personal_1` FOREIGN KEY (`referencia_personal_1`) REFERENCES `persona` (`numero_identificacion`))
+mysql>
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1001,
+    ->  "A1-001-005-102", NULL, NULL, NULL, 1, 123454321, 234565432, 345678765, 12345);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1002,
+    ->  "C12-015-010-015", NULL, NULL, NULL, 2, 234264234, 234565432, 345678765, 54312);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTRATO (poliza_amparo, local_asignado, numero_contrato_propietario,numero_contrato_membresia, numero_contrato_temporal,
+    -> codigo_puesto_almacenamiento, contratante, referencia_personal_1, referencia_personal_2, referencia_comercio) VALUES ( 1003,
+    ->  "M08-025-001-012", NULL, NULL, NULL, 3, 234543211, 234565432, 345678765, 215454);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO VEHICULO VALUES ("JFQ300", "Coupe", "Negro", 2020, " chevrolet", NULL,NULL, 2, 34565432
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO VEHICULO VALUES ("JFQ300", "Coupe", "Negro", "2020", " chevrolet", NULL,NULL, 2, 34565432
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO VEHICULO VALUES ("JFQ300", "Coupe", "Negro", '2020', " chevrolet", NULL,NULL, 2, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", 2020, "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '20', "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", "20", "chevrolet", NULL, NULL, 1, 34565432;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 0, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("QIK190", "camioneta", "blanco", '2015', "honda", NULL, NULL, 1, 345678765);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 2, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 1, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql> INSERT INTO vehiculo VALUES ("JFQ300", "Coupe", "Negro", '2020', "chevrolet", NULL, NULL, 3, 34565432);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bd_sqlfinal`.`vehiculo`, CONSTRAINT `referencia_contractual` FOREIGN KEY (`numero_contrato`) REFERENCES `contrato` (`numero_contrato`))
+mysql>
+
+
+
