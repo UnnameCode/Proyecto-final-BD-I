@@ -966,7 +966,7 @@ public class Clase_Gui extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
-        if ("Temporal".equals(jComboBox4.getSelectedItem().toString())) {           
+        if ("Temporal".equals(jComboBox2.getSelectedItem().toString())) {           
             jTextField24.setEnabled(true);
             jTextField25.setEnabled(true);
             jTextField25.setEnabled(true);
@@ -981,7 +981,7 @@ public class Clase_Gui extends javax.swing.JFrame {
             jTextField34.setEnabled(true);
             jTextField35.setEnabled(true);
          }
-         if ("Propietario".equals(jComboBox4.getSelectedItem().toString())) {           
+         if ("Propietario".equals(jComboBox2.getSelectedItem().toString())) {           
             jTextField24.setEnabled(true);
             jTextField25.setEnabled(true);
             jTextField25.setEnabled(true);
@@ -996,7 +996,7 @@ public class Clase_Gui extends javax.swing.JFrame {
             jTextField34.setEnabled(false);
             jTextField35.setEnabled(false);
          }
-          if ("Membresia".equals(jComboBox4.getSelectedItem().toString())) {           
+          if ("Membresia".equals(jComboBox2.getSelectedItem().toString())) {           
             jTextField24.setEnabled(true);
             jTextField25.setEnabled(true);
             jTextField25.setEnabled(true);
