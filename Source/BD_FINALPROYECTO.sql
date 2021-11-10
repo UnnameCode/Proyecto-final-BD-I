@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `bd_projectfinal` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `bd_projectfinal`;
 -- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bd_projectfinal
