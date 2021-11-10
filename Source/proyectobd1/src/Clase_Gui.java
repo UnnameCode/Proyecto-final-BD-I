@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -188,18 +189,13 @@ public class Clase_Gui extends javax.swing.JFrame {
         jTextField14.setEditable(false);
         jTextField14.setText("000010010-Y");
 
-
         jLabel3.setText("Poliza");
-
-        jLabel1.setText("Puesto Almacenamiento");
-
-        jLabel3.setText("Contrato");
 
         jLabel4.setText("Numero");
 
         jLabel6.setText("Local asignado");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Temporal", "Propietario", "Membresia", " ", " " }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Temporal", "Propietario", "Membresia" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -221,6 +217,11 @@ public class Clase_Gui extends javax.swing.JFrame {
         jLabel39.setText("Frecuencia pago");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mensual", "Semestral", "Anual", " " }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jLabel40.setText("Referencia personal");
 
@@ -248,7 +249,7 @@ public class Clase_Gui extends javax.swing.JFrame {
 
         jLabel5.setText("Tipo local");
 
-        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "C", "M", " " }));
+        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "C", "M" }));
         jComboBox10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox10ActionPerformed(evt);
@@ -300,11 +301,11 @@ public class Clase_Gui extends javax.swing.JFrame {
                                 .addComponent(jButton2))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
                                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(87, 87, 87)
-                                        .addComponent(jLabel2)))
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton7)
                                 .addGap(28, 28, 28)
@@ -858,6 +859,11 @@ public class Clase_Gui extends javax.swing.JFrame {
         jLabel54.setText("Consultar contratos a vencer");
 
         jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel55.setText("Consultar puestos almacenamiento");
 
@@ -880,6 +886,11 @@ public class Clase_Gui extends javax.swing.JFrame {
         jButton6.setText("jButton6");
 
         jButton8.setText("jButton3");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("jButton9");
 
@@ -1046,7 +1057,62 @@ public class Clase_Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        
+        // VARS TEMPORALES ( NO SE USAN SIEMPRE)
+        
+        
+        //tempora y membresia
+        String tmpFechaFinalizacion = "";
+        char tmpFrecuenciaPago;
+        String tmpFechaPoliza = "";
+        String tmpFechaTerminacionPolzia = "";
+        // membresia
+        
+        char tmpSeguroMecanica;
+              
+        // temporal
+               
+        String tmpFechaInicio = "";
+        
+        //  propietario
+        String tmpTipoPersona = ""; //natural / juridica
+        String tmpTipoUso = "";
+        
+        // 
+        
+        
+        
+        // revisar el tipo de contrato seleccionado para crearlo previo a la creacion
+        int opcion = jComboBox2.getSelectedIndex();
+        
+        switch (opcion){
+            case 0: //temporal
+                tmpFechaInicio = JOptionPane.showInputDialog(null, "Ingrese la fecha de inicio :"); //toca verificar las entradas
+                //Joption...
+                
+                break;
+                
+                
+            case 1: //propietario
+                
+                // pedir valores para propietario
+                break;
+                
+                
+            case 2: //membresia
+                
+                
+                // pedir valores para membresia
+                
+                break;
+                
+        }
+        
         try{
+            
+            
+            
+            
             Contrato.Registrar_Contrato_temporal(conexionmysql, jTextField2.getText().toString().charAt(0), jTextField39.getText(), jTextField40.getText(),jComboBox3.getSelectedItem().toString().charAt(0),jTextField40.getText().toString().charAt(0),jTextField43.getText() );
             Contrato.Registrar_Contrato(conexionmysql,jTextField24.getText().toString().charAt(0) ,jTextField25.getText(), jTextField42.getText().toString().charAt(0),jTextField1.getText().toString().charAt(0));
         }
@@ -1125,6 +1191,18 @@ public class Clase_Gui extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // 
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
     
     /**
      * @param args the command line arguments
