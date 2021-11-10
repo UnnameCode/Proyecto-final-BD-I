@@ -107,6 +107,58 @@ public class Consultas {
         
         return returnValue;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static String ProcessQuerieResult(ResultSet resultSet) throws SQLException{
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        String returnValue = "";
+        String header = "";
+        int columnsNumber = rsmd.getColumnCount();
+        
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) returnValue+=(",  ");
+                String columnValue = resultSet.getString(i);
+                returnValue+=((rsmd.getColumnName(i)+ ": " + columnValue + "\n\n"));
+            }
+        }
+        
+        
+        return returnValue;
+    }
+
+
+
+
 }
     
     
