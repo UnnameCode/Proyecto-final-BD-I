@@ -25,7 +25,7 @@ public class Consultas {
 "SELECT numero_contrato, fecha_inicio, fecha_finalizacion, frecuencia_pago, poliza_amparo, local_asignado FROM membresia WHERE fecha_finalizacion > curdate() AND numero_contrato = (SELECT numero_contrato_temporal FROM contrato WHERE numero_contrato = (SELECT numero_contrato FROM persona));";
          stmt.executeUpdate(sql);
          
-         System.out.println("Consultar los contratos proximos a vence"); 
+         System.out.println("Consultar los contratos proximos a vencer"); 
          sql = "SELECT numero_contrato, tipo_persona, tipo_uso FROM propietario WHERE fecha_finalizacion > curdate() ORDER BY fecha_finalizacion ASC;\n" +
 "SELECT numero_contrato, seguro_mecanica, fecha_finalizacion, frecuencia_pago, fecha poliza, fecha_terminacion_poliza FROM membresia WHERE fecha_finalizacion > curdate() ORDER BY fecha_finalizacion ASC;\n" +
 "SELECT numero_contrato, fecha_inicio, fecha_finalizacion, frecuencia_pago, poliza_amparo, local_asignado FROM temporal WHERE fecha_finalizacion > curdate() ORDER BY fecha_finalizacion ASC;";
@@ -107,6 +107,58 @@ public class Consultas {
         
         return returnValue;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static String ProcessQuerieResult(ResultSet resultSet) throws SQLException{
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        String returnValue = "";
+        String header = "";
+        int columnsNumber = rsmd.getColumnCount();
+        
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) returnValue+=(",  ");
+                String columnValue = resultSet.getString(i);
+                returnValue+=((rsmd.getColumnName(i)+ ": " + columnValue + "\n\n"));
+            }
+        }
+        
+        
+        return returnValue;
+    }
+
+
+
+
 }
     
     

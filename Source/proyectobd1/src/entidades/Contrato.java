@@ -58,7 +58,7 @@ public class Contrato {
     // metodos para contratos
     public static void Registrar_Contrato(Statement mysql, int poliza, String localAsignado, int codigoPuestoAlmacenamiento, int contratante) throws SQLException{
         String comando = "INSERT INTO contrato ( poliza_amparo, local_asignado, codigo_puesto_almacenamiento, contratante) VALUES ( "+
-                String.valueOf(poliza) + ", " + localAsignado + ", " + String.valueOf(codigoPuestoAlmacenamiento) + ", " + contratante + ");";
+                String.valueOf(poliza) + ", \"" + localAsignado + "\", " + String.valueOf(codigoPuestoAlmacenamiento) + ", " + contratante + ");";
         
         
         mysql.execute(comando);
@@ -66,17 +66,28 @@ public class Contrato {
     
     public static void Registrar_Contrato_temporal(Statement mysql, int numContrato, String fechaInicio, String fechaFinalizacion, char frecuenciaPago, int poliza, String localAsignado) throws SQLException{
         String comando = "INSERT INTO temporal ( numero_contrato, fecha_inicio, fecha_finalizacion, frecuencia_pago, poliza_amparo, local_asignado) VALUES ( " +
-                String.valueOf(numContrato)+"," +fechaInicio + ", "+ fechaFinalizacion + ", "+ String.valueOf(frecuenciaPago) + ", " + poliza + ", " + localAsignado + ");";
+                String.valueOf(numContrato)+", \"" +fechaInicio + "\", \""+ fechaFinalizacion + "\", \'"+ String.valueOf(frecuenciaPago) + "\', " + poliza + ", \"" + localAsignado + "\");";
         
         mysql.execute(comando);
         
     }
     
-    public static void Registrar_Contrato_membresia(){
+    public static void Registrar_Contrato_membresia(Statement mysql, int numContrato, char seguroMecanica, String fechaFinalizacion, char frecuenciaPago, String fechaPoliza, String fechaTerminacionPoliza) throws SQLException{{
+        String comando = "INSERT INTO membresia ( numero_contrato, seguro_mecanica, fecha_finalizacion, frecuencia_pago, fecha_poliza, fecha_terminacion_poliza) VALUES ( "+
+              String.valueOf(numContrato) + ", \'"+ String.valueOf(seguroMecanica) + ", \""+ fechaFinalizacion +"\", \'"+
+                String.valueOf(frecuenciaPago)+ "\' , \""+ fechaPoliza +"\", \""+fechaTerminacionPoliza+"\");";
+        
+        mysql.execute(comando);
+                     
+    }
         
     }
     
-    public static void Registrar_contrato_propietario(){
+    public static void Registrar_contrato_propietario(Statement mysql, int numContrato, String tipoPersona, String tipoUso) throws SQLException{
+        String comando = "INSERT INTO propietario (numero_contrato, tipo_persona, tipo_uso) VALUES ( " +
+                String.valueOf(numContrato) + ", \""+ tipoPersona + "\", \""+tipoUso + "\");";
+        
+        mysql.execute(comando);
         
     }
     
