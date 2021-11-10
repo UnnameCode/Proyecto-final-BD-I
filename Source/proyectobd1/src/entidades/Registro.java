@@ -21,6 +21,17 @@ public class Registro {
     
     // queries
     
+    // consultar visitantes fecha especifica
+    
+    public static String ConsultarVisitantesFecha(Statement mysql, String Date) throws SQLException{
+        String returnValue = "";
+        String comando = "SELECT * FROM ;";
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        return returnValue;
+    }
+    
     public static String ConsultarRegistrosVehiculo(Statement mysql, String placa) throws SQLException{
         String returnValue = "";
         String comando = "SELECT * FROM registro WHERE ( registro.placa_vehiculo="+ placa+ ");";

@@ -28,15 +28,25 @@ public class Consultas {
     o Registrar la salida de un vehículo autorizado (Z Parcialmente falta verificar (REGISTRO)
     o Consultar los puestos de almacenamiento (X) Falta acomodar string que devuelve (PUESTO_ALMACENAMIENTO)
     o Consultar los ingresos y salidas de un vehículo particular    ( Y ) parcial, esta en Registro (REGISTRO)
-    o Consultar datos de los clientes por categoría y sus contratos
-    o Consultar los vehículos autorizados para un contrato
-    o Consultar los vehículos autorizados para un cliente
-    o Consultar los visitantes en una fecha específica
+    o Consultar datos de los clientes por categoría y sus contratos (CONSULTAS)
+    o Consultar los vehículos autorizados para un contrato (VEHICULOS)
+    o Consultar los vehículos autorizados para un cliente  (VEHICULOS)
+    o Consultar los visitantes en una fecha específica     (REGISTRO)
     
     
     
     */
 
+    
+    public static String ConsultarClientesCategoria(Statement mysql, String categoria){
+        String returnValue = "";
+        String querieCommand = "";
+        
+        
+        // desplegar clientes con datos especificos al contrato especificado
+        
+        return returnValue;
+    }
     
     
     
