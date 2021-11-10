@@ -34,7 +34,7 @@ CREATE TABLE `bodega` (
   `material_construccion` varchar(15) NOT NULL,
   `puertas_entrada` int(11) DEFAULT NULL,
   `puertas_salida` int(11) DEFAULT NULL,
-  `cantidad_puestos` int(11) NOT NULL,
+  `cantidad_puestos` int(11) DEFAULT NULL,
   PRIMARY KEY (`nit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `contrato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contrato` (
-  `numero_contrato` int(11) NOT NULL,
+  `numero_contrato` int(11) NOT NULL AUTO_INCREMENT,
   `poliza_amparo` int(11) NOT NULL,
   `local_asignado` varchar(15) NOT NULL,
   `numero_contrato_propietario` int(11) DEFAULT NULL,
@@ -249,7 +249,7 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
-  `codigo` int(11) NOT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` char(1) NOT NULL,
   `valor_asegurado` double NOT NULL,
   `descripcion` varchar(140) NOT NULL,
@@ -311,7 +311,7 @@ DROP TABLE IF EXISTS `puesto_almacenamiento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `puesto_almacenamiento` (
-  `codigo` int(11) NOT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
   `localizacion_cuadrante` varchar(15) NOT NULL,
   `consecutivo` varchar(32) NOT NULL,
   `contiene` int(11) DEFAULT NULL,
@@ -473,4 +473,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-09 15:06:31
+-- Dump completed on 2021-11-09 20:01:15
