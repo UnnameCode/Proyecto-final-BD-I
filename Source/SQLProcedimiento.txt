@@ -26,7 +26,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 // Se crea el puesto de almacenamiento (sin llave foranea x3)
 
-mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL, localizacion_cuadrante varchar(15) NOT NULL,
+mysql> CREATE TABLE BD_SQLFINAL.puesto_almacenamiento ( codigo int NOT NULL AUTO_INCREMENT, localizacion_cuadrante varchar(15) NOT NULL,
 consecutivo varchar(32) NOT NULL, contiene int NULL, bodega_nit varchar(11) NOT NULL,
 tipo_local char NOT NULL, PRIMARY KEY (codigo));
 
@@ -42,7 +42,7 @@ Query OK, 0 rows affected (0.08 sec)
 
 // Se crea la entidad producto (sin llave foranea x5)
 
-mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
+mysql> CREATE TABLE BD_SQLFINAL.producto ( codigo integer NOT NULL AUTO_INCREMENT, tipo char NOT NULL, valor_asegurado double NOT NULL, descripcion varchar(140) NOT NULL,
     estado_poliza char NOT NULL, codigo_mercancia int NULL, codigo_contenedor int NULL, codigo_maquinaria int NULL, vehiculo_placa varchar(6) NOT NULL,
     PRIMARY KEY ( codigo) ) ;
 Query OK, 0 rows affected (0.01 sec)
@@ -56,7 +56,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 // Se crea la entidad contrato(sin llaves foraneas x6)
 
-mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL, poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL,
+mysql> CREATE TABLE BD_SQLFINAL.contrato ( numero_contrato int NOT NULL AUTO_INCREMENT , poliza_amparo int NOT NULL, local_asignado varchar(15) NOT NULL,
    numero_contrato_propietario int NULL, numero_contrato_membresia int NULL, numero_contrato_temporal int NULL, codigo_puesto_almacenamiento int NOT NULL, 
    contratante int NOT NULL, referencia_personal_1 int NULL, referencia_personal_2 int NULL, referencia_comercio int NULL, PRIMARY KEY (numero_contrato));
 
