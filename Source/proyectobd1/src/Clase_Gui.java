@@ -809,7 +809,18 @@ public class Clase_Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // 
+        //  consulta un contrato
+        
+        int numeroContrato = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese numero contrato a buscar"));
+        try {
+            jTextArea1.setText(Contrato.Buscar_contrato(conexionmysql, numeroContrato));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Clase_Gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

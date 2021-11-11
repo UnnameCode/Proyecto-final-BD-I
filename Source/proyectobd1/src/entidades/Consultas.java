@@ -1,3 +1,5 @@
+package entidades;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -113,12 +115,12 @@ public class Consultas {
         
         String returnValue = "";
         String comando = "SELECT * FROM temporal WHERE temporal.fecha_finalizacion > curdate();\n" +
-"SELECT * FROM membresia WHERE membresia.fecha_finalizacion > curdate();";
+        "SELECT * FROM membresia WHERE membresia.fecha_finalizacion > curdate();";
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
         
         
-        returnValue = ProccessQuerieResult(comando);
+        
         
         return returnValue;
     }
@@ -184,7 +186,7 @@ public class Consultas {
     public static String Buscar_visitantes_fecha(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada =" + fecha + "\');";
+        String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada =" +  "\');";
         
         
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
