@@ -787,15 +787,29 @@ public class Clase_Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+<<<<<<< HEAD
         try {
             //
 
             Contrato.Buscar_contrato(conexionmysql, Integer.parseInt(jTextField2.getText()));
           
+=======
+        //  consulta un contrato
+        
+        int numeroContrato = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese numero contrato a buscar"));
+        try {
+            jTextArea1.setText(Contrato.Buscar_contrato(conexionmysql, numeroContrato));
+            
+>>>>>>> ab4dce64ec45fc59191c994d12ebff3555bce6a3
         } catch (SQLException ex) {
             Logger.getLogger(Clase_Gui.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+<<<<<<< HEAD
+=======
+        
+        
+>>>>>>> ab4dce64ec45fc59191c994d12ebff3555bce6a3
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

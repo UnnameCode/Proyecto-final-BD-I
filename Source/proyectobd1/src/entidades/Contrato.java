@@ -6,6 +6,8 @@ package entidades;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import entidades.Consultas;
+import java.sql.ResultSet;
 
 /**
  *
@@ -25,11 +27,10 @@ public class Contrato {
         String comando = "SELECT * FROM contrato WHERE ( contrato.numero_contrato ="+String.valueOf(numContrato)+");";
         
         
-        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
-        
-        
-        returnValue = "Falta por implementar :u";
-        
+        ResultSet resultSet = mysql.executeQuery(comando); // devuelve un set, por ende debe parsearse la entrada
+        returnValue = Consultas.ProcessQuerieResult(resultSet);
+       
+        System.out.print(returnValue);             
         return returnValue;
     }
     
