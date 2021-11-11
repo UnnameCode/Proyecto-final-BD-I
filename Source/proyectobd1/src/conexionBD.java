@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Santi
@@ -11,9 +12,14 @@ import java.sql.*;
 public class conexionBD {
     Connection cn;
     public Connection conexion(){
+        
         try{
+            String usuario = " ";
+            String Contraseña = "";
+            usuario = JOptionPane.showInputDialog(null, "Ingrese Nombre usuario");
+            Contraseña = JOptionPane.showInputDialog(null, "Ingrese Contraseña");
             Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_projectfinal?useSSL=false","root","Premiun123");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_projectfinal?useSSL=false",usuario,Contraseña);
             System.out.println("Conexion Establecida");
             
         }

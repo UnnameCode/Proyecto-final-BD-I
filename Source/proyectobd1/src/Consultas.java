@@ -118,7 +118,7 @@ public class Consultas {
         mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
         
         
-        returnValue = ProccessQuerieResult(comando);
+        // returnValue = ProccessQuerieResult(comando);
         
         return returnValue;
     }
@@ -184,10 +184,10 @@ public class Consultas {
     public static String Buscar_visitantes_fecha(Statement mysql, int numContrato) throws SQLException{
         
         String returnValue = "";
-        String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada =" + fecha + "\');";
+        //String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada =" + fecha + "\');";
         
         
-        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+       // mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
         
         
         returnValue = "consultar los visitantes en una fecha especifica";

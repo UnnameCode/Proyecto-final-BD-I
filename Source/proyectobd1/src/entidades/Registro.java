@@ -43,10 +43,11 @@ public class Registro {
     
      
     // metodos para entidad registro
-    public static void Registrar_ingreso(Statement mysql, String licenciaConductor, int cedulaConductor, String placaVehiculo, String tipoVehiculo, String localIngreso, String tipoUsuario, String date) throws SQLException{
+    
+    public static void Registrar_ingreso(Statement mysql, String licenciaConductor, int cedulaConductor, String placaVehiculo, String tipoVehiculo, String localIngreso, String tipoUsuario, String HoraEntrada) throws SQLException{
         String comando = "INSERT INTO registro ( licencia_conductor, cedula_conductor,  placa_vehiculo, tipo_vehiculo,"
                 + "local_ingreso, tipo_usuario, tiempo_entrada ) VALUES (\"" + licenciaConductor +"\","+ String.valueOf(cedulaConductor)+", \""
-                + placaVehiculo + "\" , \"" + tipoVehiculo + "\" , \"" + localIngreso + "\", \"" + tipoUsuario + "\", \'" + date + "\');";
+                + placaVehiculo + "\" , \"" + tipoVehiculo + "\" , \"" + localIngreso + "\", \"" + tipoUsuario + "\", \'" + HoraEntrada + "\');";
         
         
         // todo verificar que el vehiculo este autorizado (verificar el num de contrato asociado a la placa)
