@@ -131,6 +131,10 @@ public class Clase_Gui extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel59 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jLabel60 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -620,6 +624,11 @@ public class Clase_Gui extends javax.swing.JFrame {
         jLabel55.setText("Consultar puestos almacenamiento");
 
         jButton4.setText("jButton4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -630,12 +639,27 @@ public class Clase_Gui extends javax.swing.JFrame {
         jLabel57.setText("Consultar tipo de cliente");
 
         jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Temporal", "Propietario", "Membresia", " " }));
+        jComboBox9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox9ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("jButton5");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel58.setText("Consultar fecha especifica de visitante ");
 
         jButton6.setText("jButton6");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("jButton3");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -645,30 +669,58 @@ public class Clase_Gui extends javax.swing.JFrame {
         });
 
         jButton9.setText("jButton9");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("jButton10");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel59.setText("Consultar vehiculos autorizados por contrato");
+
+        jButton11.setText("jButton2");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jLabel60.setText("Consultar vehiculos autorizados por cliente");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel52)
-                                    .addComponent(jButton8))
-                                .addGap(37, 37, 37)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel53)
-                                    .addComponent(jButton9)))
-                            .addComponent(jLabel54)
-                            .addComponent(jButton3)
-                            .addComponent(jLabel55)
-                            .addComponent(jButton4))
+                            .addComponent(jLabel52)
+                            .addComponent(jButton8))
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel53)
+                            .addComponent(jButton9)))
+                    .addComponent(jLabel54)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel55)
+                    .addComponent(jButton4))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -679,11 +731,26 @@ public class Clase_Gui extends javax.swing.JFrame {
                             .addComponent(jLabel56)
                             .addComponent(jLabel58)
                             .addComponent(jButton6)
-                            .addComponent(jButton10)))
+                            .addComponent(jButton10))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel59)
+                        .addContainerGap())))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(161, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(67, 67, 67))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel60)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -717,10 +784,21 @@ public class Clase_Gui extends javax.swing.JFrame {
                         .addComponent(jButton4))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(jLabel59)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel60)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton11)
+                        .addGap(65, 65, 65))))
         );
 
         jTabbedPane1.addTab("Consultas", jPanel5);
@@ -809,11 +887,30 @@ public class Clase_Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // 
+           String returnValue = "";
+        String comando = "SELECT * FROM temporal WHERE temporal.fecha_finalizacion > curdate();\n" +
+"SELECT * FROM membresia WHERE membresia.fecha_finalizacion > curdate();";
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = ProccessQuerieResult(comando);
+        
+        return returnValue;
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        String returnValue = "";
+        String comando = "SELECT * FROM temporal WHERE DATEDIFF (curdate(), fecha_finalizacion);\n" +
+"SELECT * FROM membresia WHERE DATEDIFF (curdate(), fecha_finalizacion);";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "Consultar contratos proximos a vencer";
+        
+        return returnValue;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -935,6 +1032,101 @@ public class Clase_Gui extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    String returnValue = "";
+        String comando = "SELECT * FROM registro";
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = ProccessQuerieResult(comando);
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        String returnValue = "";
+        String comando = "SELECT * FROM temporal WHERE temporal.fecha_finalizacion > curdate();\n" +
+"SELECT * FROM membresia WHERE membresia.fecha_finalizacion > curdate();";
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = ProccessQuerieResult(comando);
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String returnValue = "";
+        String comando = "SELECT * FROM persona ORDER BY tipo;\n" +
+"SELECT * FROM contrato ORDER BY numero_contrato_temporal OR numero_contrato_membresia;";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "Consultar datos de los clientes por categoría y sus contratos";
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     String returnValue = "";
+        String comando = "SELECT * from vehiculo WHERE numero_contrato is TRUE;";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "Buscar vehiculos autorizados por un contrato";
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+       String returnValue = "";
+        String comando = "SELECT * from vehiculo WHERE identificacion_conductor order by identificacion_conductor";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "Consultar los vehículos autorizados para un cliente";
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+     String returnValue = "";
+        String comando = "SELECT numero_registro, licencia_conductor, cedula_conductor, placa_vehiculo, marca_vehiculo, vol_carga, capacidad_carga ,tipo_vehiculo, tiempo_entrada FROM registro WHERE tiempo_entrada =" + String.valueOf(fechaDada)+ + "\');";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "consultar los visitantes en una fecha especifica";
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String returnValue = "";
+        String comando = "SELECT * FROM puesto_almacenamiento;";
+        
+        
+        mysql.executeQuery(comando);  // devuelve un set, por ende debe parsearse la entrada
+        
+        
+        returnValue = "consultar los puestos de almacenamiento";
+        
+        return returnValue;
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox9ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -978,6 +1170,8 @@ public class Clase_Gui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1030,7 +1224,9 @@ public class Clase_Gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
